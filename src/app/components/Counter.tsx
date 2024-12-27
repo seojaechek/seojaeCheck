@@ -6,7 +6,7 @@ export default function Page() {
   const { count, decrease, increase } = useCountStore((state) => state);
 
   return (
-    <div className="flex flex-col gap-4 items-center justify-center h-80">
+    <div className="flex h-80 flex-col items-center justify-center gap-4">
       <h1>
         Counter <span>{count}</span>
       </h1>
@@ -14,13 +14,13 @@ export default function Page() {
       <div className="flex gap-2">
         <button
           onClick={increase}
-          className="border border-white p-1.5 font-medium rounded-md"
+          className="rounded-md border border-white p-1.5 font-medium"
         >
           Increase
         </button>
         <button
           onClick={decrease}
-          className="border border-white p-1.5 font-medium rounded-md"
+          className="rounded-md border border-white p-1.5 font-medium"
         >
           Decrease
         </button>

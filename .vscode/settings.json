@@ -3,7 +3,8 @@
     "comments": "#a5d6a7",
     "textMateRules": []
   },
+  "workbench.settings.editor": "ui",
   "files.associations": {
   "*.css": "tailwindcss"
-},
+}
 }

@@ -1,4 +1,4 @@
-import { testApi } from "@/libs/apis/testApi";
+import { testApi } from "../libs/apis/testApi";
 import { useQuery } from "@tanstack/react-query";
 
 export const useTextApi = () => {

@@ -8,6 +8,20 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      animation: {
+        'crausel1': 'infiniteCarusel1 20s linear infinite',
+        'crausel2': 'infiniteCarusel2 20s linear infinite'
+      },
+      keyframes: {
+        infiniteCarusel1: {
+          '0%': {transform: 'translateX(-100%)'},
+          '100%': {transform: 'translateX(0)'}
+        },
+        infiniteCarusel2: {
+          '0%': {transform: 'translateX(0%)'},
+          '100%': {transform: 'translateX(100%)'}
+        }
+      },
       fontFamily: {
         main: ["PretendardVariable", "sans-serif"],
         styled: ["NanumMyeongjo", "serif"],
