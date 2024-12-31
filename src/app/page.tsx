@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import { todayTopic } from "@/libs/apis/todayTopic";
 import { todayAuthors } from "../libs/apis/todayAuthors";
-import Carusel from "./components/Carusel";
+import Carousel from "./components/Carousel";
 
 import Search from "/public/icons/SearchWhite.png";
 
@@ -26,9 +26,9 @@ export default function Home() {
       </div>
       <div className="flex w-2/3 flex-col items-center justify-center gap-4 px-5 py-3">
         <h1 className="w-full text-left">오늘의 토픽</h1>
-        {booksOfTopic.data && <Carusel books={booksOfTopic.data} />}
+        {booksOfTopic.data && <Carousel books={booksOfTopic.data} />}
         <h1 className="w-full text-left">오늘의 작가</h1>
-        {booksOfAuthor.data && <Carusel books={booksOfAuthor.data} />}
+        {booksOfAuthor.data && <Carousel books={booksOfAuthor.data} />}
       </div>
     </main>
   );

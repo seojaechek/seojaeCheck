@@ -44,6 +44,9 @@ const config: Config = {
       height: {
         "minu-nav": "calc(100vh - 100px)",
       },
+      dropShadow: {
+        black: "-10px 10px 2px rgba(0, 0, 0, 0.8)",
+      },
     },
   },
   plugins: [],
