@@ -24,6 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${myFont.className} bg-neutral-100`}>
+        <div id="global-modal"></div>
         <Navbar />
         <ReactQueryClientProvider>{children}</ReactQueryClientProvider>
       </body>

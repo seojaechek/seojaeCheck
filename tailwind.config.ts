@@ -9,18 +9,19 @@ const config: Config = {
   theme: {
     extend: {
       animation: {
-        'crausel1': 'infiniteCarusel1 20s linear infinite',
-        'crausel2': 'infiniteCarusel2 20s linear infinite'
+        crausel1: "infiniteCarusel1 20s linear infinite",
+        crausel2: "infiniteCarusel2 20s linear infinite",
+        spin: "spin 1s linear infinite",
       },
       keyframes: {
         infiniteCarusel1: {
-          '0%': {transform: 'translateX(-100%)'},
-          '100%': {transform: 'translateX(0)'}
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(0)" },
         },
         infiniteCarusel2: {
-          '0%': {transform: 'translateX(0%)'},
-          '100%': {transform: 'translateX(100%)'}
-        }
+          "0%": { transform: "translateX(0%)" },
+          "100%": { transform: "translateX(100%)" },
+        },
       },
       fontFamily: {
         main: ["PretendardVariable", "sans-serif"],
@@ -42,6 +43,9 @@ const config: Config = {
       },
       height: {
         "minu-nav": "calc(100vh - 100px)",
+      },
+      dropShadow: {
+        black: "-10px 10px 2px rgba(0, 0, 0, 0.8)",
       },
     },
   },
