@@ -3,9 +3,18 @@
 import React from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { likedBook } from "@/types/common";
+import Image from "next/image";
 
-const SortableItem = ({ id }: { id: string }) => {
-  const { listeners, setNodeRef, transform, transition } = useSortable({ id });
+interface SortableItemProps {
+  id: string;
+  book: likedBook;
+}
+
+function SortableItem({ id, book }: SortableItemProps) {
+  const { listeners, setNodeRef, transform, transition } = useSortable({
+    id,
+  });
 
   return (
     <div
@@ -15,11 +24,18 @@ const SortableItem = ({ id }: { id: string }) => {
         transition,
       }}
       {...listeners}
-      className="my-2 flex h-12 w-full items-center justify-center border border-black bg-white"
     >
-      {id}
+      <div className="relative h-[180px] w-[121px]" key={book.isbn}>
+        {book.thumbnail ? (
+          <Image src={book.thumbnail} fill alt={book.title} />
+        ) : (
+          <div className="flexCenter h-[180px] w-[121px] border border-black">
+            No Image
+          </div>
+        )}
+      </div>
     </div>
   );
-};
+}
 
 export default SortableItem;

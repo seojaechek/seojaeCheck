@@ -1,33 +1,39 @@
+"use client";
+
 import React from "react";
 import { useDroppable } from "@dnd-kit/core";
 import {
   SortableContext,
-  verticalListSortingStrategy,
+  horizontalListSortingStrategy,
 } from "@dnd-kit/sortable";
+
 import SortableItem from "./SortableItm";
+import { likedBook } from "@/types/common";
 
 interface ContainerProps {
   id: string;
-  items: string[];
+  items: likedBook[];
 }
 
 export default function Container({ id, items }: ContainerProps) {
+  // useDroppable : 아이템이 놓일 수 있는 공간
   const { setNodeRef } = useDroppable({
-    //setNodeRef - 이벤트 적용 노드 참조
     id,
   });
-  //useDroppable 아이템이 놓일 수 있는 공간을 ref로 참조
 
   return (
     <SortableContext
       id={id}
-      items={items}
-      strategy={verticalListSortingStrategy}
-      // strategy 아이템들을 놓는 방법 ex) vertical, horizontal
+      // dnd-kit은 key 배열이 필요 -> 여기서는 book.isbn
+      items={items.map((item) => item.isbn)}
+      strategy={horizontalListSortingStrategy}
     >
-      <div ref={setNodeRef} className="m-2 flex-1 bg-gray-300 p-2">
-        {items.map((id) => (
-          <SortableItem key={id} id={id} />
+      <div
+        ref={setNodeRef}
+        className="m-2 flex min-h-[180px] flex-1 flex-row space-x-2 overflow-x-scroll bg-gray-300 p-2"
+      >
+        {items.map((item) => (
+          <SortableItem key={item.isbn} id={item.isbn} book={item} />
         ))}
       </div>
     </SortableContext>
