@@ -8,3 +8,9 @@ export type Book = {
   isbn: string;
   thumbnail: string;
 };
+
+export interface likedBook {
+  title: string;
+  isbn: string;
+  thumbnail: string;
+}

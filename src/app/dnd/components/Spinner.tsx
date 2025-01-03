@@ -1,9 +1,7 @@
 import React from "react";
 
-type Size = "sm" | "md" | "lg" | "xl";
-
 interface SpinnerProps {
-  size: Size;
+  size: "sm" | "md" | "lg" | "xl";
 }
 
 export default function Spinner({ size }: SpinnerProps) {
