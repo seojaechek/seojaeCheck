@@ -1,31 +1,26 @@
-import {
-  DragStartEvent,
-  DragOverEvent,
-  DragEndEvent,
-  UniqueIdentifier,
-} from "@dnd-kit/core";
+import { likedBook } from "@/types/common";
+import { DragStartEvent, DragOverEvent, DragEndEvent } from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 
-/**
- * Finds the name of the container (object key) that an item belongs to.
- */
+// //**
+// * 아이템이 속해있는 컨테이너를 찾는 함수
+// */
 export function findContainer(
-  id: UniqueIdentifier,
-  items: Record<string, string[]>,
+  id: string, // isbn
+  items: Record<string, likedBook[]>,
 ): string | undefined {
-  const idStr = id.toString();
-
-  // If the idStr matches a container key directly, return that
-  if (idStr in items) {
-    return idStr;
+  if (id in items) {
+    return id;
   }
 
-  // Otherwise, find which container array includes the idStr
-  return Object.keys(items).find((key) => items[key].includes(idStr));
+  // 해당 id를 가진 likedBook이 어느 컨테이너에 속해 있는지 찾는다.
+  return Object.keys(items).find((key) =>
+    items[key].some((book) => book.isbn === id),
+  );
 }
 
 /**
- * Handle drag start
+ * 드래그 시작 : active 상태 추적
  */
 export function handleDragStart(
   event: DragStartEvent,
@@ -37,47 +32,54 @@ export function handleDragStart(
 }
 
 /**
- * Handle dragging over another container
+ * 드래그 중: 마우스가 다른 컨테이너 위로 이동할 때
  */
 export function handleDragOver(
   event: DragOverEvent,
-  items: Record<string, string[]>,
-  // pass a callback that can update multiple containers in Zustand
-  updateContainers: (updated: Partial<Record<string, string[]>>) => void,
+  items: Record<string, likedBook[]>,
+  updateContainers: (updated: Partial<Record<string, likedBook[]>>) => void,
 ) {
   const { active, over } = event;
   const id = active.id.toString();
   const overId = over?.id.toString();
+
   const activeContainer = findContainer(id, items);
   const overContainer = overId ? findContainer(overId, items) : undefined;
 
+  // 같은 컨테이너거나 유효하지 않으면 작업 중단
   if (!activeContainer || !overContainer || activeContainer === overContainer) {
     return;
   }
 
+  // 현재 컨테이너 / 타겟 컨테이너 모두 복사
   const activeItems = [...items[activeContainer]];
   const overItems = [...items[overContainer]];
 
-  // Remove item from old container
-  const activeIndex = activeItems.indexOf(id);
-  activeItems.splice(activeIndex, 1);
+  // activeBook 인덱스 찾기
+  const activeIndex = activeItems.findIndex((book) => book.isbn === id);
+  if (activeIndex === -1) return;
+  const [movedBook] = activeItems.splice(activeIndex, 1);
 
-  // Figure out insert index in new container
+  // 드래그 중인 아이템의 새 인덱스
   let newIndex = 0;
-  const overIndex = overItems.indexOf(overId as string);
 
-  if (overId && overId in items) {
-    // If dragging over the container itself, place at the end
+  const overIndex = overItems.findIndex((book) => book.isbn === overId);
+
+  // 만약 overId가 '컨테이너 자체'라면 -> 맨 뒤에 추가
+  if (overId && overId === overContainer) {
     newIndex = overItems.length;
   } else {
+    // 아이템 위에 드래그된 경우
     const isBelowLastItem =
       over && overIndex === overItems.length - 1 && event.delta.y > 0;
     const modifier = isBelowLastItem ? 1 : 0;
     newIndex = overIndex >= 0 ? overIndex + modifier : overItems.length;
   }
-  // Insert in the new container
-  overItems.splice(newIndex, 0, id);
 
+  // 새 컨테이너에 아이템 삽입
+  overItems.splice(newIndex, 0, movedBook);
+
+  // 스토어 업데이트
   updateContainers({
     [activeContainer]: activeItems,
     [overContainer]: overItems,
@@ -85,17 +87,18 @@ export function handleDragOver(
 }
 
 /**
- * Handle dropping in the final container
+ * 드랍 + 컨테이너 내에서 이동될 때
  */
 export function handleDragEnd(
   event: DragEndEvent,
-  items: Record<string, string[]>,
-  updateContainers: (updated: Partial<Record<string, string[]>>) => void,
+  items: Record<string, likedBook[]>,
+  updateContainers: (updated: Partial<Record<string, likedBook[]>>) => void,
   setActiveId: React.Dispatch<React.SetStateAction<string | null>>,
 ) {
   const { active, over } = event;
+
+  // 컨테이너 밖에 드랍된 경우
   if (!over) {
-    // If dropped outside any container
     setActiveId(null);
     return;
   }
@@ -104,24 +107,25 @@ export function handleDragEnd(
   const overId = over.id.toString();
 
   const activeContainer = findContainer(id, items);
-  const overContainer = findContainer(overId, items);
-
-  // If the item was dropped in another container, handleDragOver took care of it
-  if (!activeContainer || !overContainer || activeContainer !== overContainer) {
+  if (!activeContainer) {
     setActiveId(null);
     return;
   }
 
-  // If we are reordering within the same container
-  const containerItems = items[activeContainer];
-  const activeIndex = containerItems.indexOf(id);
-  const overIndex = containerItems.indexOf(overId);
+  // 같은 컨테이너에서 아이템이 움직일 때 (위치 변경)
+  if (activeContainer === findContainer(overId, items)) {
+    const containerItems = [...items[activeContainer]];
+    const activeIndex = containerItems.findIndex((book) => book.isbn === id);
+    const overIndex = containerItems.findIndex((book) => book.isbn === overId);
 
-  if (activeIndex !== overIndex) {
-    const newItems = arrayMove(containerItems, activeIndex, overIndex);
-    updateContainers({
-      [activeContainer]: newItems,
-    });
+    // 둘의 인덱스가 달라야 이동
+    if (activeIndex !== overIndex && overIndex !== -1) {
+      const newItems = arrayMove(containerItems, activeIndex, overIndex);
+      updateContainers({
+        [activeContainer]: newItems,
+      });
+    }
   }
+
   setActiveId(null);
 }
