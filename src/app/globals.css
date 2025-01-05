@@ -73,5 +73,5 @@ input[type="search"]::-webkit-search-cancel-button {
 }
 
 .searchList {
-  @apply max-w-4xl rounded-lg border-2 border-neutral-200 bg-white;
+  @apply w-[900px] max-w-5xl rounded-lg border-2 border-neutral-200 bg-white;
 }
