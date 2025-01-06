@@ -7,4 +7,11 @@ export type Book = {
   url: string;
   isbn: string;
   thumbnail: string;
+  datetime?: string;
 };
+
+export interface likedBook {
+  title: string;
+  isbn: string;
+  thumbnail: string;
+}
