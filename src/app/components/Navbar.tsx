@@ -3,7 +3,6 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 
 import Logo from "/public/logo.png";
-import Searchicon from "/public/icons/Search.png";
 import BookIcon from "/public/icons/Books.png";
 
 export default function Navbar() {
@@ -21,16 +20,7 @@ export default function Navbar() {
           router.push("/");
         }}
       />
-      <div className="flex w-32 gap-5">
-        <Image
-          className="cursor-pointer"
-          src={Searchicon}
-          sizes="28"
-          alt="search"
-          onClick={() => {
-            router.push("/search");
-          }}
-        />
+      <div className="flex w-10">
         <Image
           className="cursor-pointer"
           src={BookIcon}
