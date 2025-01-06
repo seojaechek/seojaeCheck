@@ -3,8 +3,6 @@ import { Book } from "@/types/common";
 import { useHorizontalScroll } from "@/hooks/useHorizontalScroll";
 
 export default function BooksRow({ data }: { data: Book[] }) {
-  console.log(data);
-
   const { containerRef, handleWheel } = useHorizontalScroll();
   return (
     <div

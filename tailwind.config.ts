@@ -9,18 +9,18 @@ const config: Config = {
   theme: {
     extend: {
       animation: {
-        crausel1: "infiniteCarusel1 20s linear infinite",
-        crausel2: "infiniteCarusel2 20s linear infinite",
+        firstSlide: "startSlide 20s linear infinite",
+        secondSlide: "endSlide 20s linear infinite",
         spin: "spin 1s linear infinite",
       },
       keyframes: {
-        infiniteCarusel1: {
-          "0%": { transform: "translateX(-100%)" },
-          "100%": { transform: "translateX(0)" },
-        },
-        infiniteCarusel2: {
+        startSlide: {
           "0%": { transform: "translateX(0%)" },
           "100%": { transform: "translateX(100%)" },
+        },
+        endSlide: {
+          "0%": { transform: "translateX(-100%)" },
+          "100%": { transform: "translateX(0)" },
         },
       },
       fontFamily: {

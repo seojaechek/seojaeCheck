@@ -1,16 +1,36 @@
-import Image from "next/image"
-import Logo from '/public/logo.png'
-import Searchicon from '/public/icons/Search.png'
-import BookIcon from '/public/icons/Books.png'
+"use client";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+
+import Logo from "/public/logo.png";
+import BookIcon from "/public/icons/Books.png";
 
 export default function Navbar() {
-    return (
-        <div className="w-full h-[100px] flex items-center justify-between bg-navbar">
-            <Image src={Logo} sizes="100" alt="Logo" />
-            <div className="w-32 flex gap-5">
-                <Image src={Searchicon} sizes="28" alt="search" />
-                <Image src={BookIcon} sizes="28" alt="books" />
-            </div>
-        </div>
-    )
+  const router = useRouter();
+
+  return (
+    <div className="flex h-[100px] w-full items-center justify-between bg-navbar">
+      <Image
+        className="cursor-pointer"
+        src={Logo}
+        sizes="100"
+        priority={true}
+        alt="Logo"
+        onClick={() => {
+          router.push("/");
+        }}
+      />
+      <div className="flex w-10">
+        <Image
+          className="cursor-pointer"
+          src={BookIcon}
+          sizes="28"
+          alt="books"
+          onClick={() => {
+            router.push("/bookshelf");
+          }}
+        />
+      </div>
+    </div>
+  );
 }
