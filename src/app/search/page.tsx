@@ -1,4 +1,4 @@
-import SearchBar from "./_components/SearchBar";
+import SearchBar from "../components/SearchBar";
 import SearchResult from "./_components/SearchResult";
 
 export default function Search() {

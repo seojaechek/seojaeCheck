@@ -2,7 +2,7 @@ import { todayTopic } from "@/libs/apis/todayTopic";
 import { todayAuthors } from "../libs/apis/todayAuthors";
 import topics from "@/data/topics";
 import authors from "@/data/authors";
-import SearchBar from "./search/_components/SearchBar";
+import SearchBar from "./components/SearchBar";
 import Carousel from "./components/home/Carousel";
 
 export const revalidate = 86400;
