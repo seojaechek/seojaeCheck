@@ -2,7 +2,7 @@
 import Image from "next/image";
 
 import { useModalStore } from "@/stores/modal";
-import Modal from "../Modal";
+import Modal from "../modal/Modal";
 
 import { Book } from "@/types/common";
 
@@ -11,7 +11,9 @@ export default function Carousel({ books }: { books: Book[] }) {
 
   return (
     <section className="group relative z-0 flex h-[213px] w-full items-center overflow-hidden border-2 border-neutral-200">
-      <div className="carousel group-hover:pause absolute flex animate-firstSlide items-center">
+      <div
+        className={`carousel ${isOpen && "pause"} group-hover:pause absolute flex animate-firstSlide items-center`}
+      >
         {books.map((book: Book) => {
           return (
             <div className="relative mr-7 h-[180px] w-[121px]" key={book.isbn}>
@@ -28,7 +30,9 @@ export default function Carousel({ books }: { books: Book[] }) {
           );
         })}
       </div>
-      <div className="carousel group-hover:pause absolute flex animate-secondSlide items-center">
+      <div
+        className={`carousel ${isOpen && "pause"} group-hover:pause absolute flex animate-secondSlide items-center`}
+      >
         {books.map((book: Book) => {
           return (
             <div className="relative mr-7 h-[180px] w-[121px]" key={book.isbn}>
