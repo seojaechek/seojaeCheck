@@ -1,10 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import { Book } from "@/types/common";
 import Bookmark from "./Bookmark";
-import { useSearchBooks } from "@/hooks/useSearchBooks";
+import { Book } from "@/types/common";
+import { useModalStore } from "@/stores/modal";
+import Modal from "@/app/components/modal/Modal";
 import BookListSkeleton from "./BookListSkeleton";
+import { useSearchBooks } from "@/hooks/useSearchBooks";
 
 interface SearchResultProps {
   query: string;
@@ -12,6 +14,7 @@ interface SearchResultProps {
 
 export default function SearchResult({ query }: SearchResultProps) {
   const { data, isLoading, isFetching } = useSearchBooks(query);
+  const { isOpen, openModal } = useModalStore();
 
   if (!query) {
     return <p className="mt-4 text-4xl font-black">검색어가 없습니다.</p>;
@@ -32,7 +35,12 @@ export default function SearchResult({ query }: SearchResultProps) {
       {data?.documents.map((el: Book) => {
         return (
           <li key={el.isbn} className="searchList">
-            <article className="relative flex justify-center">
+            <article
+              className="relative flex cursor-pointer justify-center"
+              onClick={() => {
+                openModal(el);
+              }}
+            >
               <picture className="flexCenter relative mx-8 my-3 h-60 w-40 shadow-md">
                 <Image src={el.thumbnail} fill alt={`${el.title} 표지`} />
               </picture>
@@ -79,6 +87,7 @@ export default function SearchResult({ query }: SearchResultProps) {
           </li>
         );
       })}
+      {isOpen && <Modal />}
     </ul>
   );
 }
