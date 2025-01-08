@@ -35,7 +35,6 @@ export const useLikedBookStore = create<Containers & Action>()(
         if (error) {
           console.error("Failed to rehydrate likedBookStore:", error);
         } else if (state) {
-          // Check if `root` is empty and set default values
           if (state.root.length === 0) {
             state.root = [
               {

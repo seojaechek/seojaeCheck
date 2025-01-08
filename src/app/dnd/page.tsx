@@ -20,9 +20,11 @@ import {
 } from "@/libs/dnd/dragHelper";
 import { likedBook } from "@/types/common";
 import Modal from "../components/modal/Modal";
+import { useModalStore } from "@/stores/modal";
 
 export default function Dnd() {
   const { root, container1, container2, setItems } = useLikedBookStore();
+  const { isOpen } = useModalStore();
   const [activeId, setActiveId] = useState<string | null>(null);
 
   // items 객체로 묶어서 전달
@@ -74,7 +76,7 @@ export default function Dnd() {
           ) : null}
         </DragOverlay>
 
-        <Modal />
+        {isOpen && <Modal />}
       </DndContext>
     </div>
   );
