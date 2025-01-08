@@ -19,6 +19,7 @@ import {
   handleDragEnd,
 } from "@/libs/dnd/dragHelper";
 import { likedBook } from "@/types/common";
+import Modal from "../components/modal/Modal";
 
 export default function Dnd() {
   const { root, container1, container2, setItems } = useLikedBookStore();
@@ -72,6 +73,8 @@ export default function Dnd() {
             <SortableItem id={activeItem.isbn} book={activeItem} />
           ) : null}
         </DragOverlay>
+
+        <Modal />
       </DndContext>
     </div>
   );

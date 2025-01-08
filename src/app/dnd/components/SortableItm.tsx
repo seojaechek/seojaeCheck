@@ -5,7 +5,7 @@ import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { likedBook } from "@/types/common";
 import Image from "next/image";
-import Modal from "@/app/components/modal/Modal";
+
 import { useModalStore } from "@/stores/modal";
 
 interface SortableItemProps {
@@ -17,8 +17,8 @@ function SortableItem({ id, book }: SortableItemProps) {
   const { listeners, setNodeRef, transform, transition } = useSortable({
     id,
   });
-  const { openModal, isOpen, data } = useModalStore();
-  console.log(isOpen);
+  const { openModal } = useModalStore();
+
   return (
     <div
       ref={setNodeRef}
@@ -34,9 +34,8 @@ function SortableItem({ id, book }: SortableItemProps) {
         onPointerDown={(e) => {
           e.stopPropagation();
         }}
-        onClick={(e) => {
+        onClick={() => {
           openModal(book.isbn);
-          e.stopPropagation();
         }}
       >
         {book.thumbnail ? (
@@ -51,7 +50,6 @@ function SortableItem({ id, book }: SortableItemProps) {
             No Image
           </div>
         )}
-        {isOpen && data && <Modal />}
       </div>
     </div>
   );
