@@ -12,7 +12,8 @@ export default function Bookmark({ title, thumbnail, isbn }: likedBook) {
 
   const [showSelect, setShowSelect] = useState(false);
 
-  const handleBookmarkClick = () => {
+  const handleBookmarkClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
     // 전체 서재 store
     const combined = [...root, ...container1, ...container2];
 
@@ -32,7 +33,7 @@ export default function Bookmark({ title, thumbnail, isbn }: likedBook) {
       <button
         type="button"
         className="absolute right-5 top-4 cursor-pointer"
-        onClickCapture={handleBookmarkClick}
+        onClick={handleBookmarkClick}
       >
         <Image src={bookmarkFilled} width={28} height={28} alt="북마크 추가" />
       </button>
