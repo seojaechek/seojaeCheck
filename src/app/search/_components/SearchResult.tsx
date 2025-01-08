@@ -42,10 +42,19 @@ export default function SearchResult({ query }: SearchResultProps) {
               }}
             >
               <picture className="flexCenter relative mx-8 my-3 h-60 w-40 shadow-md">
-                <Image src={el.thumbnail} fill alt={`${el.title} 표지`} />
+                <Image
+                  src={el.thumbnail}
+                  fill
+                  alt={`${el.title} 표지`}
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
+                />
               </picture>
 
-              <Bookmark />
+              <Bookmark
+                title={el.title}
+                isbn={el.isbn}
+                thumbnail={el.thumbnail}
+              />
               <div className="border border-border" />
               <div className="my-4 ml-8 mr-12 flex w-8/12 flex-col justify-between gap-2">
                 <div className="flex flex-col gap-2">
