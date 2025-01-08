@@ -15,7 +15,7 @@ export default function Modal() {
     { title: "작가", content: data.authors },
     { title: "번역", content: data.translators },
     { title: "출판사", content: data.publisher },
-    { title: "ISBN", content: data.isbn },
+    { title: "ISBN", content: data.isbn.split(" ")[0] },
   ];
 
   useEffect(() => {

@@ -6,6 +6,8 @@ import { CSS } from "@dnd-kit/utilities";
 import { likedBook } from "@/types/common";
 import Image from "next/image";
 
+import { useModalStore } from "@/stores/modal";
+
 interface SortableItemProps {
   id: string;
   book: likedBook;
@@ -15,6 +17,7 @@ function SortableItem({ id, book }: SortableItemProps) {
   const { listeners, setNodeRef, transform, transition } = useSortable({
     id,
   });
+  const { openModal } = useModalStore();
 
   return (
     <div
@@ -25,9 +28,20 @@ function SortableItem({ id, book }: SortableItemProps) {
       }}
       {...listeners}
     >
-      <div className="relative h-[180px] w-[121px]" key={book.isbn}>
+      <div
+        className="relative h-[180px] w-[121px]"
+        key={book.isbn}
+        onClick={() => {
+          openModal(book.isbn);
+        }}
+      >
         {book.thumbnail ? (
-          <Image src={book.thumbnail} fill alt={book.title} />
+          <Image
+            src={book.thumbnail}
+            fill
+            alt={book.title}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
+          />
         ) : (
           <div className="flexCenter h-[180px] w-[121px] border border-black">
             No Image
