@@ -31,9 +31,6 @@ function SortableItem({ id, book }: SortableItemProps) {
       <div
         className="relative h-[180px] w-[121px]"
         key={book.isbn}
-        onPointerDown={(e) => {
-          e.stopPropagation();
-        }}
         onClick={() => {
           openModal(book.isbn);
         }}
