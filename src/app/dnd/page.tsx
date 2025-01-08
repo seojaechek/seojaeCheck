@@ -31,7 +31,13 @@ export default function Dnd() {
   const allItems = [...root, ...container1, ...container2];
 
   // DnD 센서
-  const sensors = useSensors(useSensor(PointerSensor));
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 5,
+      },
+    }),
+  );
 
   // 컨테이너 업데이트 함수
   const updateContainers = (updated: Partial<typeof items>) => {

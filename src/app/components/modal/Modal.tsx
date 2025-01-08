@@ -12,10 +12,10 @@ export default function Modal() {
   const { closeModal, data } = useModalStore();
 
   const contentList = [
-    { title: "작가", content: data.authors },
-    { title: "번역", content: data.translators },
-    { title: "출판사", content: data.publisher },
-    { title: "ISBN", content: data.isbn },
+    { title: "작가", content: data?.authors },
+    { title: "번역", content: data?.translators },
+    { title: "출판사", content: data?.publisher },
+    { title: "ISBN", content: data?.isbn },
   ];
 
   useEffect(() => {
