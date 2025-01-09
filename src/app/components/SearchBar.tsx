@@ -1,34 +1,37 @@
 "use client";
 
 import Image from "next/image";
+import { FormEvent, useState } from "react";
+import { useRouter } from "next/navigation";
 import searchBtn from "/public/icons/SearchSearch.svg";
-import { useSearchResult } from "@/stores/searchResult";
 
 export default function SearchBar() {
-  const { query, setQuery } = useSearchResult();
+  const router = useRouter();
+  const [inputValue, setInputValue] = useState("");
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!inputValue.trim()) return;
+    router.push(`/search?query=${encodeURIComponent(inputValue)}`);
   };
   return (
     <form
-      onSubmit={handleSubmit}
       role="search"
       aria-label="도서 검색"
-      className="mb-14 flex w-96 max-w-md rounded-lg bg-[#fefefe] p-4"
+      onSubmit={handleSubmit}
+      className="mb-14 flex w-2/6 min-w-72 rounded-lg bg-[#fefefe] px-4 py-5 shadow-sm"
     >
       <label htmlFor="searchInput" className="sr-only">
         검색
       </label>
       <input
         type="search"
-        name="search"
-        value={query}
+        value={inputValue}
         id="searchInput"
         placeholder="Search..."
         aria-describedby="search-hint"
-        className="grow text-font-textPrimary outline-none"
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => setInputValue(e.target.value)}
+        className="grow text-lg text-font-textPrimary outline-none"
       />
       <button type="submit" aria-label="검색 버튼" className="search">
         <Image src={searchBtn} width={32} height={32} alt="검색 아이콘" />

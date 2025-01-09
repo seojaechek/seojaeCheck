@@ -31,7 +31,7 @@ const config: Config = {
         navbar: "#D9D9D9",
         brown: {
           1: "#fefae0",
-          2: "eae0d5",
+          2: "#eae0d5",
           3: "#c6ac8f",
           4: "#5e503f",
         },
