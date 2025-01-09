@@ -20,6 +20,13 @@ export default function DropDown({
 
   const { setItems } = useLikedBookStore();
 
+  // 내부 상태 값 ↔ 표시 텍스트
+  const containerMap = {
+    root: "읽고 싶은 책",
+    container1: "읽고 있는 책",
+    container2: "다 읽은 책",
+  };
+
   // 드롭다운 최상위 div에서 이벤트 전파 중단
   const handleContainerClick = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -40,14 +47,16 @@ export default function DropDown({
     // 새로운 책
     const newBook: likedBook = { title, thumbnail, isbn };
     // 기존 컨테이너
-    const containerArray = useLikedBookStore.getState()[selectedContainer];
+    const containerArr = useLikedBookStore.getState()[selectedContainer];
     // 기존 컨테이너 + 새로운 책
-    const updated = [...containerArray, newBook];
+    const updated = [...containerArr, newBook];
     // 저장
     setItems(selectedContainer, updated);
 
     // 안내 후 닫기
-    alert(`[${title}] 책이 ${selectedContainer}에 추가되었습니다.`);
+    alert(
+      `[${title}] 책이 ${containerMap[selectedContainer]}에 추가되었습니다.`,
+    );
     setShowSelect(false);
     setSelectedContainer("");
   };
