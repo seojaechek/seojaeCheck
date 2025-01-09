@@ -5,7 +5,7 @@ import { useState } from "react";
 import DropDown from "./DropDown";
 import { likedBook } from "@/types/common";
 import { useLikedBookStore } from "@/stores/likedBooks";
-import bookmarkFilled from "/public/icons/BookmarkFilled.svg";
+import bookmark from "/public/icons/Bookmark.svg";
 
 export default function Bookmark({ title, thumbnail, isbn }: likedBook) {
   const { root, container1, container2 } = useLikedBookStore();
@@ -32,10 +32,16 @@ export default function Bookmark({ title, thumbnail, isbn }: likedBook) {
     <>
       <button
         type="button"
-        className="absolute right-5 top-4 cursor-pointer"
+        className="group absolute right-5 top-4 cursor-pointer"
         onClick={handleBookmarkClick}
       >
-        <Image src={bookmarkFilled} width={28} height={28} alt="북마크 추가" />
+        <Image
+          src={bookmark}
+          width={28}
+          height={28}
+          alt="북마크 추가"
+          className="transition-transform duration-100 ease-in group-hover:scale-110"
+        />
       </button>
       {showSelect && (
         <DropDown
