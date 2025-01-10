@@ -1,12 +1,13 @@
 "use client";
 
-import { useSearchBooks } from "@/hooks/useSearchBooks";
+import { useState } from "react";
+
 import BookListSkeleton from "../BookListSkeleton";
+import SearchResultUI from "../presentation/SearchResultUI";
 
 import { useModalStore } from "@/stores/modal";
+import { useSearchBooks } from "@/hooks/useSearchBooks";
 import { useLikedBookStore } from "@/stores/likedBooks";
-import { useState } from "react";
-import SearchResultUI from "../presentation/SearchResultUI";
 
 interface ContainerProps {
   query: string;
@@ -15,6 +16,7 @@ interface ContainerProps {
 export default function SearchResultContainer({ query }: ContainerProps) {
   // 검색 API 호출, 모달 스토어
   const { data, isLoading, isFetching } = useSearchBooks(query);
+
   const { isOpen: isModalOpen } = useModalStore();
 
   // 전역 서재 상태
@@ -22,6 +24,11 @@ export default function SearchResultContainer({ query }: ContainerProps) {
   const combined = [...root, ...container1, ...container2];
 
   const [openDropDownId, setOpenDropDownId] = useState<string | null>(null);
+
+  // 열러 있던 isbn와 같으면 닫기(toggle), 다르면 열기
+  const handleCloseDropDown = (isbn: string) => {
+    setOpenDropDownId((prev) => (prev === isbn ? null : isbn));
+  };
 
   // 북마크 클릭 이벤트
   const handleOpenDropDown = (isbn: string) => {
@@ -34,12 +41,7 @@ export default function SearchResultContainer({ query }: ContainerProps) {
       return;
     }
 
-    // 열러 있던 isbn와 같으면 닫기(toggle), 다르면 열기
-    if (openDropDownId === isbn) {
-      setOpenDropDownId(null);
-    } else {
-      setOpenDropDownId(isbn);
-    }
+    handleCloseDropDown(isbn);
   };
 
   // 검색어가 없을 때
@@ -60,6 +62,7 @@ export default function SearchResultContainer({ query }: ContainerProps) {
       books={data.documents}
       openDropDownId={openDropDownId}
       handleOpenDropDown={handleOpenDropDown}
+      handleCloseDropDown={handleCloseDropDown}
       isModalOpen={isModalOpen}
     />
   );

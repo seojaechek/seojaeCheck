@@ -9,12 +9,14 @@ interface containerProps {
   title: string;
   isbn: string;
   thumbnail: string;
+  handleCloseDropDown: (isbn: string) => void;
 }
 
 export default function DropDownContainer({
   title,
   isbn,
   thumbnail,
+  handleCloseDropDown,
 }: containerProps) {
   // 책장 저장용
   const newBook: likedBook = { title, isbn, thumbnail };
@@ -51,7 +53,12 @@ export default function DropDownContainer({
       `[${title}] 책이 ${BookshelfMap[selectedBookshelf]}에 추가되었습니다.`,
     );
 
+    handleCloseDropDown(isbn);
     setSelectedBookshelf("");
+  };
+
+  const handleCancel = () => {
+    handleCloseDropDown(isbn);
   };
 
   return (
@@ -59,6 +66,7 @@ export default function DropDownContainer({
       selectedBookshelf={selectedBookshelf}
       handleSelectChange={handleSelectChange}
       handleConfirm={handleConfirm}
+      handleCancel={handleCancel}
     />
   );
 }

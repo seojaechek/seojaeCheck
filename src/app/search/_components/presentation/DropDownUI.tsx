@@ -2,12 +2,14 @@ interface DropDownProps {
   selectedBookshelf: string;
   handleSelectChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   handleConfirm: () => void;
+  handleCancel: () => void;
 }
 
 export default function DropDownUI({
   selectedBookshelf,
   handleSelectChange,
   handleConfirm,
+  handleCancel,
 }: DropDownProps) {
   return (
     <form
@@ -37,7 +39,10 @@ export default function DropDownUI({
         >
           추가
         </button>
-        <button className="w-full rounded bg-gray-300 px-2 py-1 text-sm text-black">
+        <button
+          className="w-full rounded bg-gray-300 px-2 py-1 text-sm text-black"
+          onClick={handleCancel}
+        >
           취소
         </button>
       </div>

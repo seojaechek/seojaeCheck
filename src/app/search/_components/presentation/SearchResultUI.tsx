@@ -11,6 +11,7 @@ interface SearchResultProps {
   books: Book[];
   openDropDownId: string | null;
   handleOpenDropDown: (isbn: string) => void;
+  handleCloseDropDown: (isbn: string) => void;
   isModalOpen: boolean;
 }
 
@@ -18,6 +19,7 @@ export default function SearchResultUI({
   books,
   openDropDownId,
   handleOpenDropDown,
+  handleCloseDropDown,
   isModalOpen,
 }: SearchResultProps) {
   const { openModal } = useModalStore();
@@ -43,6 +45,7 @@ export default function SearchResultUI({
               book={el}
               isOpen={openDropDownId === el.isbn}
               onOpenDropDown={handleOpenDropDown}
+              handleCloseDropDown={handleCloseDropDown}
             />
 
             <div className="border-borderColor border" />

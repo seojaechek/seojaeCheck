@@ -7,12 +7,14 @@ interface ContainerProps {
   book: Book;
   isOpen: boolean;
   onOpenDropDown: (isbn: string) => void;
+  handleCloseDropDown: (isbn: string) => void;
 }
 
 export default function BookmarkContainer({
   book,
   isOpen,
   onOpenDropDown,
+  handleCloseDropDown,
 }: ContainerProps) {
   // 북마크 클릭 이벤트
   const handleClickBookmark = (e: React.MouseEvent) => {
@@ -27,6 +29,7 @@ export default function BookmarkContainer({
       book={book}
       isOpen={isOpen}
       onClickBookmark={handleClickBookmark}
+      handleCloseDropDown={handleCloseDropDown}
     />
   );
 }
