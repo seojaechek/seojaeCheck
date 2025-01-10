@@ -39,7 +39,7 @@ const config: Config = {
           textPrimary: "#292524",
           textSecondary: "#78716c",
         },
-        border: "#A8A29E",
+        borderColor: "#A8A29E",
       },
       height: {
         "minu-nav": "calc(100vh - 100px)",

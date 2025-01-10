@@ -1,5 +1,5 @@
 import SearchBar from "../components/SearchBar";
-import SearchResult from "./_components/SearchResult";
+import SearchResultContainer from "./_components/container/SearchResultContainer";
 
 interface SearchProps {
   searchParams: {
@@ -13,7 +13,7 @@ export default async function Search({ searchParams }: SearchProps) {
   return (
     <section className="flexCenter mb-10 mt-20 flex-col font-main">
       <SearchBar />
-      <SearchResult query={query} />
+      <SearchResultContainer query={query} />
     </section>
   );
 }

@@ -30,7 +30,7 @@ export default function Modal() {
   return createPortal(
     <>
       {data && (
-        <div className="fixed z-10 flex h-screen w-screen items-center justify-center bg-black bg-opacity-50">
+        <div className="fixed z-50 flex h-screen w-screen items-center justify-center bg-black bg-opacity-50">
           <div className="relative flex h-[610px] w-[600px] flex-col justify-start gap-7 border-2 border-black bg-white p-16 drop-shadow-black">
             <Image
               onClick={closeModal}
