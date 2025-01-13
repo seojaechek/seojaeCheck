@@ -17,15 +17,19 @@ import {
   handleDragStart,
   handleDragOver,
   handleDragEnd,
+  handleDragMove,
 } from "@/libs/dnd/dragHelper";
 import { likedBook } from "@/types/common";
 import Modal from "../components/modal/Modal";
 import { useModalStore } from "@/stores/modal";
+import Delete from "/public/icons/Delete.png";
+import Image from "next/image";
 
 export default function Dnd() {
   const { root, container1, container2, setItems } = useLikedBookStore();
-  const { isOpen } = useModalStore();
+  const { isOpen, data } = useModalStore();
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [isOutside, setIsOutside] = useState<boolean>(false);
 
   // items 객체로 묶어서 전달
   const items = { root, container1, container2 };
@@ -37,7 +41,7 @@ export default function Dnd() {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 5,
+        distance: 1,
       },
     }),
   );
@@ -54,30 +58,41 @@ export default function Dnd() {
   const activeItem = allItems.find((book) => book.isbn === activeId);
 
   return (
-    <div className="min-h-minu-nav flex flex-col space-y-4">
+    <article className="min-h-minu-nav flex flex-col space-y-5 p-[5%]">
       <DndContext
         sensors={sensors}
         collisionDetection={rectIntersection}
         onDragStart={(e) => handleDragStart(e, setActiveId)}
         onDragOver={(e) => handleDragOver(e, items, updateContainers)}
         onDragEnd={(e) =>
-          handleDragEnd(e, items, updateContainers, setActiveId)
+          handleDragEnd(e, items, updateContainers, setActiveId, setIsOutside)
         }
+        onDragMove={(e) => {
+          handleDragMove(e, setIsOutside);
+        }}
       >
         {/* 컨테이너들 렌더링 */}
         {Object.entries(items).map(([id, bookList]) => (
           <Container key={id} id={id} items={bookList} />
         ))}
 
-        {/* 드래그 중인 아이템을 떠 있는 형태로 */}
+        {/* 드래그 중인 아이템 */}
         <DragOverlay>
           {activeId && activeItem ? (
-            <SortableItem id={activeItem.isbn} book={activeItem} />
+            <div>
+              {isOutside && (
+                <div className="flexCenter absolute z-10 h-[180px] w-[121px] bg-red-200 opacity-50">
+                  <Image src={Delete} sizes="8" alt="삭제하기" />
+                </div>
+              )}
+
+              <SortableItem id={activeItem.isbn} book={activeItem} />
+            </div>
           ) : null}
         </DragOverlay>
 
-        {isOpen && <Modal />}
+        {isOpen && data && <Modal />}
       </DndContext>
-    </div>
+    </article>
   );
 }

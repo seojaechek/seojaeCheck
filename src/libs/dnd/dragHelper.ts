@@ -1,5 +1,10 @@
 import { likedBook } from "@/types/common";
-import { DragStartEvent, DragOverEvent, DragEndEvent } from "@dnd-kit/core";
+import {
+  DragStartEvent,
+  DragOverEvent,
+  DragEndEvent,
+  DragMoveEvent,
+} from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 
 // //**
@@ -89,36 +94,54 @@ export function handleDragOver(
 /**
  * 드랍 + 컨테이너 내에서 이동될 때
  */
+/**
+ * 드래그가 끝났을 때
+ */
 export function handleDragEnd(
   event: DragEndEvent,
   items: Record<string, likedBook[]>,
   updateContainers: (updated: Partial<Record<string, likedBook[]>>) => void,
   setActiveId: React.Dispatch<React.SetStateAction<string | null>>,
+  setIsOutside: React.Dispatch<React.SetStateAction<boolean>>,
 ) {
   const { active, over } = event;
 
-  // 컨테이너 밖에 드랍된 경우
+  // 컨테이너 밖에 드랍된 경우 -> 해당 아이템 삭제
   if (!over) {
+    const id = active.id.toString();
+    const activeContainer = findContainer(id, items);
+
+    // 아이템이 속한 컨테이너를 찾고 삭제
+    if (activeContainer) {
+      const updatedItems = [...items[activeContainer]];
+      const itemIndex = updatedItems.findIndex((book) => book.isbn === id);
+      if (itemIndex !== -1) {
+        updatedItems.splice(itemIndex, 1); // 아이템 삭제
+        updateContainers({ [activeContainer]: updatedItems }); // 스토어 업데이트
+      }
+    }
+
+    // 상태 초기화
+    setIsOutside(false);
     setActiveId(null);
     return;
   }
 
+  // 컨테이너 내부에서 드랍된 경우
   const id = active.id.toString();
   const overId = over.id.toString();
-
   const activeContainer = findContainer(id, items);
   if (!activeContainer) {
     setActiveId(null);
     return;
   }
 
-  // 같은 컨테이너에서 아이템이 움직일 때 (위치 변경)
+  // 같은 컨테이너 내에서 위치만 변경한 경우
   if (activeContainer === findContainer(overId, items)) {
     const containerItems = [...items[activeContainer]];
     const activeIndex = containerItems.findIndex((book) => book.isbn === id);
     const overIndex = containerItems.findIndex((book) => book.isbn === overId);
 
-    // 둘의 인덱스가 달라야 이동
     if (activeIndex !== overIndex && overIndex !== -1) {
       const newItems = arrayMove(containerItems, activeIndex, overIndex);
       updateContainers({
@@ -127,5 +150,18 @@ export function handleDragEnd(
     }
   }
 
+  // 상태 초기화
   setActiveId(null);
+  setIsOutside(false);
+}
+
+export function handleDragMove(
+  event: DragMoveEvent,
+  setIsOutside: React.Dispatch<React.SetStateAction<boolean>>,
+) {
+  if (!event.over) {
+    setIsOutside(true);
+  } else {
+    setIsOutside(false);
+  }
 }
