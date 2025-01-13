@@ -14,9 +14,10 @@ export default function DropDown({
   isbn,
   setShowSelect,
 }: DropDownProps) {
+  // 상태 값 타입에서 빈 문자열 제외
   const [selectedContainer, setSelectedContainer] = useState<
-    "" | "toRead" | "reading" | "done"
-  >("");
+    "toRead" | "reading" | "done" | null
+  >(null);
 
   const { setItems } = useLikedBookStore();
 
@@ -57,12 +58,13 @@ export default function DropDown({
       `[${title}] 책이 ${containerMap[selectedContainer]}에 추가되었습니다.`,
     );
     setShowSelect(false);
-    setSelectedContainer("");
+    setSelectedContainer(null);
   };
 
   const handleCancel = () => {
     setShowSelect(false);
   };
+
   return (
     <div
       className="z-5 absolute right-5 top-12 flex flex-col items-center gap-3 rounded border bg-white p-5 shadow-lg"
@@ -72,7 +74,7 @@ export default function DropDown({
         어느 서재에 담을까요?
       </label>
       <select
-        value={selectedContainer}
+        value={selectedContainer || ""}
         onChange={handleSelectChange}
         className="w-full border px-2 py-1 text-sm"
       >
