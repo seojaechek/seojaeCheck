@@ -17,15 +17,19 @@ import {
   handleDragStart,
   handleDragOver,
   handleDragEnd,
+  handleDragMove,
 } from "@/libs/dnd/dragHelper";
 import { likedBook } from "@/types/common";
 import Modal from "../components/modal/Modal";
 import { useModalStore } from "@/stores/modal";
+import Delete from "/public/icons/Delete.png";
+import Image from "next/image";
 
 export default function Dnd() {
   const { toRead, reading, done, setItems } = useLikedBookStore();
-  const { isOpen } = useModalStore();
+  const { isOpen, data } = useModalStore();
   const [activeId, setActiveId] = useState<string | null>(null);
+  const [isOutside, setIsOutside] = useState<boolean>(false);
 
   // items 객체로 묶어서 전달
   const items = { toRead, reading, done };
@@ -36,9 +40,9 @@ export default function Dnd() {
   // DnD 센서
   const sensors = useSensors(
     useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 5,
-      },
+      // activationConstraint: {
+      //   distance: 1,
+      // },
     }),
   );
 
@@ -61,8 +65,11 @@ export default function Dnd() {
         onDragStart={(e) => handleDragStart(e, setActiveId)}
         onDragOver={(e) => handleDragOver(e, items, updateContainers)}
         onDragEnd={(e) =>
-          handleDragEnd(e, items, updateContainers, setActiveId)
+          handleDragEnd(e, items, updateContainers, setActiveId, setIsOutside)
         }
+        onDragMove={(e) => {
+          handleDragMove(e, setIsOutside);
+        }}
       >
         {/* 컨테이너들 렌더링 */}
         {Object.entries(items).map(([id, bookList]) => (
@@ -72,11 +79,19 @@ export default function Dnd() {
         {/* 드래그 중인 아이템 */}
         <DragOverlay>
           {activeId && activeItem ? (
-            <SortableItem id={activeItem.isbn} book={activeItem} />
+            <div>
+              {isOutside && (
+                <div className="flexCenter absolute z-10 h-[180px] w-[121px] bg-red-200 opacity-50">
+                  <Image src={Delete} sizes="8" alt="삭제하기" />
+                </div>
+              )}
+
+              <SortableItem id={activeItem.isbn} book={activeItem} />
+            </div>
           ) : null}
         </DragOverlay>
 
-        {isOpen && <Modal />}
+        {isOpen && data && <Modal />}
       </DndContext>
     </article>
   );

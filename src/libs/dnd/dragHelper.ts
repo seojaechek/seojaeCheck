@@ -102,6 +102,7 @@ export function handleDragEnd(
   items: Record<string, likedBook[]>,
   updateContainers: (updated: Partial<Record<string, likedBook[]>>) => void,
   setActiveId: React.Dispatch<React.SetStateAction<string | null>>,
+  setIsOutside: React.Dispatch<React.SetStateAction<boolean>>,
 ) {
   const { active, over } = event;
 
@@ -110,20 +111,18 @@ export function handleDragEnd(
     const id = active.id.toString();
     const activeContainer = findContainer(id, items);
 
-    // 만약 어느 컨테이너에도 속해있지 않다면 그냥 종료
-    if (!activeContainer) {
-      setActiveId(null);
-      return;
+    // 아이템이 속한 컨테이너를 찾고 삭제
+    if (activeContainer) {
+      const updatedItems = [...items[activeContainer]];
+      const itemIndex = updatedItems.findIndex((book) => book.isbn === id);
+      if (itemIndex !== -1) {
+        updatedItems.splice(itemIndex, 1); // 아이템 삭제
+        updateContainers({ [activeContainer]: updatedItems }); // 스토어 업데이트
+      }
     }
 
-    // 원래 있던 컨테이너에서 해당 아이템을 제거
-    const updatedItems = [...items[activeContainer]];
-    const itemIndex = updatedItems.findIndex((book) => book.isbn === id);
-    if (itemIndex !== -1) {
-      updatedItems.splice(itemIndex, 1);
-      updateContainers({ [activeContainer]: updatedItems });
-    }
-
+    // 상태 초기화
+    setIsOutside(false);
     setActiveId(null);
     return;
   }
@@ -151,14 +150,15 @@ export function handleDragEnd(
     }
   }
 
+  // 상태 초기화
   setActiveId(null);
+  setIsOutside(false);
 }
 
 export function handleDragMove(
   event: DragMoveEvent,
   setIsOutside: React.Dispatch<React.SetStateAction<boolean>>,
 ) {
-  // 만약 over가 null 이면 현재 "드롭 대상 컨테이너"가 없으므로, 영역 밖
   if (!event.over) {
     setIsOutside(true);
   } else {

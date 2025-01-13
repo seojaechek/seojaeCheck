@@ -11,6 +11,8 @@ import { useModalStore } from "@/stores/modal";
 interface SortableItemProps {
   id: string;
   book: likedBook;
+  // 드래그 & 드롭 컨테이너 영역 밖에 있는지 여부
+  isOutside?: boolean;
 }
 
 function SortableItem({ id, book }: SortableItemProps) {
@@ -20,13 +22,12 @@ function SortableItem({ id, book }: SortableItemProps) {
     });
   const { openModal } = useModalStore();
 
-  if (!book.thumbnail) {
+  if (!book.thumbnail)
     return (
-      <div className="flexCenter h-[180px] w-[121px] border border-black">
+      <div className="flexCenter h-full w-full border border-black">
         {book.title}
       </div>
     );
-  }
 
   return (
     <div
@@ -38,7 +39,9 @@ function SortableItem({ id, book }: SortableItemProps) {
       {...listeners}
     >
       <figure
-        className={`relative h-[180px] w-[121px] ${isDragging ? "opacity-50" : "opacity-100"}`}
+        className={`relative h-[180px] w-[121px] ${
+          isDragging ? "opacity-50" : "opacity-100"
+        }`}
         key={book.isbn}
         onClick={() => {
           openModal(book.isbn);
