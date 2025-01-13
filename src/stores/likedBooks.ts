@@ -3,9 +3,9 @@ import { create } from "zustand";
 import { persist, PersistOptions } from "zustand/middleware";
 
 export type Containers = {
-  toRead: likedBook[];
-  reading: likedBook[];
-  done: likedBook[];
+  root: likedBook[];
+  container1: likedBook[];
+  container2: likedBook[];
 };
 
 export type Action = {
@@ -15,9 +15,9 @@ export type Action = {
 export const useLikedBookStore = create<Containers & Action>()(
   persist<Containers & Action>(
     (set) => ({
-      toRead: [],
-      reading: [],
-      done: [],
+      root: [],
+      container1: [],
+      container2: [],
 
       setItems: (container, items) => {
         set((state) => ({
@@ -35,8 +35,8 @@ export const useLikedBookStore = create<Containers & Action>()(
         if (error) {
           console.error("Failed to rehydrate likedBookStore:", error);
         } else if (state) {
-          if (state.toRead.length === 0) {
-            state.toRead = [
+          if (state.root.length === 0) {
+            state.root = [
               {
                 title: "황금종이 1",
                 thumbnail:

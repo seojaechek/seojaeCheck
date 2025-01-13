@@ -26,16 +26,16 @@ import Delete from "/public/icons/Delete.png";
 import Image from "next/image";
 
 export default function Dnd() {
-  const { toRead, reading, done, setItems } = useLikedBookStore();
+  const { root, container1, container2, setItems } = useLikedBookStore();
   const { isOpen, data } = useModalStore();
   const [activeId, setActiveId] = useState<string | null>(null);
   const [isOutside, setIsOutside] = useState<boolean>(false);
 
   // items 객체로 묶어서 전달
-  const items = { toRead, reading, done };
+  const items = { root, container1, container2 };
 
   // 모든 책을 한 배열에 모으기
-  const allItems = [...toRead, ...reading, ...done];
+  const allItems = [...root, ...container1, ...container2];
 
   // DnD 센서
   const sensors = useSensors(
