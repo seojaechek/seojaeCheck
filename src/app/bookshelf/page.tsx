@@ -23,15 +23,15 @@ import Modal from "../components/modal/Modal";
 import { useModalStore } from "@/stores/modal";
 
 export default function Dnd() {
-  const { root, container1, container2, setItems } = useLikedBookStore();
+  const { toRead, reading, done, setItems } = useLikedBookStore();
   const { isOpen } = useModalStore();
   const [activeId, setActiveId] = useState<string | null>(null);
 
   // items 객체로 묶어서 전달
-  const items = { root, container1, container2 };
+  const items = { toRead, reading, done };
 
   // 모든 책을 한 배열에 모으기
-  const allItems = [...root, ...container1, ...container2];
+  const allItems = [...toRead, ...reading, ...done];
 
   // DnD 센서
   const sensors = useSensors(
@@ -54,7 +54,7 @@ export default function Dnd() {
   const activeItem = allItems.find((book) => book.isbn === activeId);
 
   return (
-    <div className="min-h-minu-nav flex flex-col space-y-4">
+    <article className="min-h-minu-nav flex flex-col space-y-5 p-[5%]">
       <DndContext
         sensors={sensors}
         collisionDetection={rectIntersection}
@@ -69,7 +69,7 @@ export default function Dnd() {
           <Container key={id} id={id} items={bookList} />
         ))}
 
-        {/* 드래그 중인 아이템을 떠 있는 형태로 */}
+        {/* 드래그 중인 아이템 */}
         <DragOverlay>
           {activeId && activeItem ? (
             <SortableItem id={activeItem.isbn} book={activeItem} />
@@ -78,6 +78,6 @@ export default function Dnd() {
 
         {isOpen && <Modal />}
       </DndContext>
-    </div>
+    </article>
   );
 }

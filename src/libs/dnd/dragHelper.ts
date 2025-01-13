@@ -1,5 +1,10 @@
 import { likedBook } from "@/types/common";
-import { DragStartEvent, DragOverEvent, DragEndEvent } from "@dnd-kit/core";
+import {
+  DragStartEvent,
+  DragOverEvent,
+  DragEndEvent,
+  DragMoveEvent,
+} from "@dnd-kit/core";
 import { arrayMove } from "@dnd-kit/sortable";
 
 // //**
@@ -89,6 +94,9 @@ export function handleDragOver(
 /**
  * 드랍 + 컨테이너 내에서 이동될 때
  */
+/**
+ * 드래그가 끝났을 때
+ */
 export function handleDragEnd(
   event: DragEndEvent,
   items: Record<string, likedBook[]>,
@@ -97,28 +105,44 @@ export function handleDragEnd(
 ) {
   const { active, over } = event;
 
-  // 컨테이너 밖에 드랍된 경우
+  // 컨테이너 밖에 드랍된 경우 -> 해당 아이템 삭제
   if (!over) {
+    const id = active.id.toString();
+    const activeContainer = findContainer(id, items);
+
+    // 만약 어느 컨테이너에도 속해있지 않다면 그냥 종료
+    if (!activeContainer) {
+      setActiveId(null);
+      return;
+    }
+
+    // 원래 있던 컨테이너에서 해당 아이템을 제거
+    const updatedItems = [...items[activeContainer]];
+    const itemIndex = updatedItems.findIndex((book) => book.isbn === id);
+    if (itemIndex !== -1) {
+      updatedItems.splice(itemIndex, 1);
+      updateContainers({ [activeContainer]: updatedItems });
+    }
+
     setActiveId(null);
     return;
   }
 
+  // 컨테이너 내부에서 드랍된 경우
   const id = active.id.toString();
   const overId = over.id.toString();
-
   const activeContainer = findContainer(id, items);
   if (!activeContainer) {
     setActiveId(null);
     return;
   }
 
-  // 같은 컨테이너에서 아이템이 움직일 때 (위치 변경)
+  // 같은 컨테이너 내에서 위치만 변경한 경우
   if (activeContainer === findContainer(overId, items)) {
     const containerItems = [...items[activeContainer]];
     const activeIndex = containerItems.findIndex((book) => book.isbn === id);
     const overIndex = containerItems.findIndex((book) => book.isbn === overId);
 
-    // 둘의 인덱스가 달라야 이동
     if (activeIndex !== overIndex && overIndex !== -1) {
       const newItems = arrayMove(containerItems, activeIndex, overIndex);
       updateContainers({
@@ -128,4 +152,16 @@ export function handleDragEnd(
   }
 
   setActiveId(null);
+}
+
+export function handleDragMove(
+  event: DragMoveEvent,
+  setIsOutside: React.Dispatch<React.SetStateAction<boolean>>,
+) {
+  // 만약 over가 null 이면 현재 "드롭 대상 컨테이너"가 없으므로, 영역 밖
+  if (!event.over) {
+    setIsOutside(true);
+  } else {
+    setIsOutside(false);
+  }
 }

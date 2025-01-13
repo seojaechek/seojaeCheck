@@ -14,10 +14,19 @@ interface SortableItemProps {
 }
 
 function SortableItem({ id, book }: SortableItemProps) {
-  const { listeners, setNodeRef, transform, transition } = useSortable({
-    id,
-  });
+  const { listeners, setNodeRef, transform, transition, isDragging } =
+    useSortable({
+      id,
+    });
   const { openModal } = useModalStore();
+
+  if (!book.thumbnail) {
+    return (
+      <div className="flexCenter h-[180px] w-[121px] border border-black">
+        {book.title}
+      </div>
+    );
+  }
 
   return (
     <div
@@ -28,26 +37,20 @@ function SortableItem({ id, book }: SortableItemProps) {
       }}
       {...listeners}
     >
-      <div
-        className="relative h-[180px] w-[121px]"
+      <figure
+        className={`relative h-[180px] w-[121px] ${isDragging ? "opacity-50" : "opacity-100"}`}
         key={book.isbn}
         onClick={() => {
           openModal(book.isbn);
         }}
       >
-        {book.thumbnail ? (
-          <Image
-            src={book.thumbnail}
-            fill
-            alt={book.title}
-            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
-          />
-        ) : (
-          <div className="flexCenter h-[180px] w-[121px] border border-black">
-            No Image
-          </div>
-        )}
-      </div>
+        <Image
+          src={book.thumbnail}
+          fill
+          alt={book.title}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
+        />
+      </figure>
     </div>
   );
 }

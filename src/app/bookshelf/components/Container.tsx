@@ -21,6 +21,15 @@ export default function Container({ id, items }: ContainerProps) {
     id,
   });
 
+  function titleConverter(id: string) {
+    if (id === "toRead") {
+      return "읽을 책";
+    } else if (id === "reading") {
+      return "읽고 있는 책";
+    }
+    return "다 읽은 책";
+  }
+
   return (
     <SortableContext
       id={id}
@@ -28,14 +37,17 @@ export default function Container({ id, items }: ContainerProps) {
       items={items.map((item) => item.isbn)}
       strategy={horizontalListSortingStrategy}
     >
-      <div
+      <label className="font-styled text-2xl font-extrabold text-font-textPrimary">
+        {titleConverter(id)}
+      </label>
+      <section
         ref={setNodeRef}
-        className="m-2 flex min-h-[180px] flex-1 flex-row space-x-2 overflow-x-scroll bg-gray-300 p-2"
+        className="flex min-h-[180px] flex-1 flex-row space-x-3 overflow-x-scroll border border-brown-2 bg-white"
       >
         {items.map((item) => (
           <SortableItem key={item.isbn} id={item.isbn} book={item} />
         ))}
-      </div>
+      </section>
     </SortableContext>
   );
 }
