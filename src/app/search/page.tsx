@@ -8,8 +8,8 @@ interface SearchProps {
 }
 
 export default async function Search({ searchParams }: SearchProps) {
-  const query =
-    typeof searchParams?.query === "string" ? searchParams.query : "";
+  const query = searchParams?.query ?? "";
+
   return (
     <section className="flexCenter mb-10 mt-20 flex-col font-main">
       <SearchBar />
