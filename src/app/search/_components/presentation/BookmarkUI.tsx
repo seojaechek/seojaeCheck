@@ -9,14 +9,12 @@ interface BookmarkProps {
   book: Book;
   isOpen: boolean;
   onClickBookmark: (e: React.MouseEvent) => void;
-  handleCloseDropDown: (isbn: string) => void;
 }
 
 export default function BookmarkUI({
   book,
   isOpen,
   onClickBookmark,
-  handleCloseDropDown,
 }: BookmarkProps) {
   return (
     <>
@@ -38,7 +36,6 @@ export default function BookmarkUI({
           title={book.title}
           isbn={book.isbn}
           thumbnail={book.thumbnail}
-          handleCloseDropDown={handleCloseDropDown}
         />
       )}
     </>

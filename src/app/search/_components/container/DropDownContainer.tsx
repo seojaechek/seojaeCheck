@@ -4,28 +4,27 @@ import { useState } from "react";
 import { likedBook } from "@/types/common";
 import { useLikedBookStore } from "@/stores/likedBooks";
 import DropDownUI from "../presentation/DropDownUI";
+import { useSearchStore } from "@/stores/searchStore";
 
 interface containerProps {
   title: string;
   isbn: string;
   thumbnail: string;
-  handleCloseDropDown: (isbn: string) => void;
 }
 
 export default function DropDownContainer({
   title,
   isbn,
   thumbnail,
-  handleCloseDropDown,
 }: containerProps) {
   // 책장 저장용
   const newBook: likedBook = { title, isbn, thumbnail };
-
   const [selectedBookshelf, setSelectedBookshelf] = useState<
     "" | "root" | "container1" | "container2"
   >("");
 
   const { setItems } = useLikedBookStore();
+  const { setOpenDropDownId } = useSearchStore();
 
   const BookshelfMap = {
     root: "읽고 싶은 책",
@@ -53,20 +52,16 @@ export default function DropDownContainer({
       `[${title}] 책이 ${BookshelfMap[selectedBookshelf]}에 추가되었습니다.`,
     );
 
-    handleCloseDropDown(isbn);
+    setOpenDropDownId(null);
     setSelectedBookshelf("");
-  };
-
-  const handleCancel = () => {
-    handleCloseDropDown(isbn);
   };
 
   return (
     <DropDownUI
+      handleConfirm={handleConfirm}
       selectedBookshelf={selectedBookshelf}
       handleSelectChange={handleSelectChange}
-      handleConfirm={handleConfirm}
-      handleCancel={handleCancel}
+      setOpenDropDownId={setOpenDropDownId}
     />
   );
 }

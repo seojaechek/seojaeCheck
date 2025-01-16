@@ -2,14 +2,14 @@ interface DropDownProps {
   selectedBookshelf: string;
   handleSelectChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   handleConfirm: () => void;
-  handleCancel: () => void;
+  setOpenDropDownId: (isbn: string | null) => void;
 }
 
 export default function DropDownUI({
+  handleConfirm,
   selectedBookshelf,
   handleSelectChange,
-  handleConfirm,
-  handleCancel,
+  setOpenDropDownId,
 }: DropDownProps) {
   return (
     <form
@@ -41,7 +41,7 @@ export default function DropDownUI({
         </button>
         <button
           className="w-full rounded bg-gray-300 px-2 py-1 text-sm text-black"
-          onClick={handleCancel}
+          onClick={() => setOpenDropDownId(null)}
         >
           취소
         </button>
