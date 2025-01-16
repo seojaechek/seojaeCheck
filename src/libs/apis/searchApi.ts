@@ -19,7 +19,7 @@ export interface BookResponse {
 
 export async function getBookSearch(
   query: string,
-  page: number = 1,
+  page: number,
   size: number = 10,
   sort: "accuracy",
 ): Promise<BookResponse> {
