@@ -44,6 +44,7 @@ function SortableItem({ id, book }: SortableItemProps) {
         }`}
         key={book.isbn}
         onClick={() => {
+          console.log(book.isbn);
           openModalWithIsbn(book.isbn);
         }}
       >

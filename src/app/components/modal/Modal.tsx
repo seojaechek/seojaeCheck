@@ -16,7 +16,6 @@ export default function Modal() {
     body.classList.add("modal-open");
 
     const handlePopState = () => {
-      console.log(window.location.href);
       closeModal();
     };
     window.addEventListener("popstate", handlePopState);
