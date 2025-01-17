@@ -28,9 +28,9 @@ export default function DropDownUI({
         className="w-full border px-2 py-1 text-sm"
       >
         <option value="">-- 서재 선택 --</option>
-        <option value="root">읽고 싶은 책</option>
-        <option value="container1">읽고 있는 책</option>
-        <option value="container2">다 읽은 책</option>
+        <option value="toRead">읽고 싶은 책</option>
+        <option value="reading">읽고 있는 책</option>
+        <option value="done">다 읽은 책</option>
       </select>
       <div className="flex w-full items-center justify-between gap-2">
         <button

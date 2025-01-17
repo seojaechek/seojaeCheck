@@ -20,22 +20,20 @@ export default function DropDownContainer({
   // 책장 저장용
   const newBook: likedBook = { title, isbn, thumbnail };
   const [selectedBookshelf, setSelectedBookshelf] = useState<
-    "" | "root" | "container1" | "container2"
+    "" | "toRead" | "reading" | "done"
   >("");
 
   const { setItems } = useLikedBookStore();
   const { setOpenDropDownId } = useSearchStore();
 
   const BookshelfMap = {
-    root: "읽고 싶은 책",
-    container1: "읽고 있는 책",
-    container2: "다 읽은 책",
+    toRead: "읽고 싶은 책",
+    reading: "읽고 있는 책",
+    done: "다 읽은 책",
   };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedBookshelf(
-      e.target.value as "root" | "container1" | "container2",
-    );
+    setSelectedBookshelf(e.target.value as "toRead" | "reading" | "done");
   };
 
   const handleConfirm = () => {
