@@ -5,10 +5,10 @@ export const todayAuthors = async (randomIndex: number) => {
   const setTime = new Date();
   setTime.setHours(24, 0, 0);
 
-  console.log("now", now.toUTCString(), "setTime", setTime.toUTCString());
+  console.log("now", now.toISOString(), "setTime", setTime.toISOString());
 
   const revalidationTime =
-    (Date.parse(setTime.toUTCString()) - Date.parse(now.toUTCString())) / 1000;
+    (Date.parse(setTime.toISOString()) - Date.parse(now.toISOString())) / 1000;
 
   console.log(revalidationTime);
 
