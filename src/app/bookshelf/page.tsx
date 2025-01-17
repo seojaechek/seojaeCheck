@@ -40,9 +40,9 @@ export default function Dnd() {
   // DnD 센서
   const sensors = useSensors(
     useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 1,
-      },
+      // activationConstraint: {
+      //   distance: 1,
+      // },
     }),
   );
 
