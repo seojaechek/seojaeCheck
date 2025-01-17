@@ -7,7 +7,7 @@ import Modal from "../modal/Modal";
 import { Book } from "@/types/common";
 
 export default function Carousel({ books }: { books: Book[] }) {
-  const { isOpen, openModal, data } = useModalStore();
+  const { isOpen, openModalWithData, data } = useModalStore();
 
   return (
     <section className="group relative z-0 flex h-[213px] w-full items-center overflow-hidden border-2 border-neutral-200">
@@ -23,7 +23,7 @@ export default function Carousel({ books }: { books: Book[] }) {
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
                 alt={book.title}
                 onClick={() => {
-                  openModal(book);
+                  openModalWithData(book);
                 }}
               />
             </div>
@@ -42,7 +42,7 @@ export default function Carousel({ books }: { books: Book[] }) {
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
                 alt={book.title}
                 onClick={() => {
-                  openModal(book);
+                  openModalWithData(book);
                 }}
               />
             </div>
