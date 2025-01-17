@@ -11,21 +11,30 @@ import CloseIcon from "/public/icons/Cancel.png";
 export default function Modal() {
   const { closeModal, data } = useModalStore();
 
+  useEffect(() => {
+    const body = document.body as HTMLBodyElement;
+    body.classList.add("modal-open");
+
+    const handlePopState = () => {
+      closeModal();
+    };
+    window.addEventListener("popstate", handlePopState);
+
+    return () => {
+      body.classList.remove("modal-open");
+    };
+  }, []);
+
+  if (!data) {
+    return null;
+  }
+
   const contentList = [
     { title: "작가", content: data.authors },
     { title: "번역", content: data.translators },
     { title: "출판사", content: data.publisher },
     { title: "ISBN", content: data.isbn.split(" ")[0] },
   ];
-
-  useEffect(() => {
-    const body = document.body as HTMLBodyElement;
-    body.classList.add("modal-open");
-
-    return () => {
-      body.classList.remove("modal-open");
-    };
-  }, []);
 
   return createPortal(
     <>
@@ -59,12 +68,14 @@ export default function Modal() {
                 );
               })}
             </div>
-            <div className="flex h-24 flex-col gap-3">
-              <span className="text-xl font-semibold">소개</span>
-              <p className="line-clamp-3 text-sm font-normal">
-                {data.contents}
-              </p>
-            </div>
+            {data.contents !== "" && (
+              <div className="flex h-24 flex-col gap-3">
+                <span className="text-xl font-semibold">소개</span>
+                <p className="line-clamp-3 text-sm font-normal">
+                  {data.contents}
+                </p>
+              </div>
+            )}
           </div>
         </div>
       )}

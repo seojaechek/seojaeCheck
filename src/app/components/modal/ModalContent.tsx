@@ -18,7 +18,7 @@ export default function ModalContent(props: IProps) {
 
   return (
     <div className="flex gap-7">
-      <span className="text-sm font-normal">{props.title}</span>
+      <span className="w-10 text-sm font-normal">{props.title}</span>
       <span className="line-clamp-1 text-sm font-semibold">
         {typeof props.content === "string"
           ? props.content

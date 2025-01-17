@@ -10,8 +10,8 @@ import {
   rectIntersection,
 } from "@dnd-kit/core";
 
-import Container from "./components/Container";
-import SortableItem from "./components/SortableItm";
+import Container from "./_components/Container";
+import SortableItem from "./_components/SortableItm";
 import { useLikedBookStore } from "@/stores/likedBooks";
 import {
   handleDragStart,
@@ -40,9 +40,9 @@ export default function Dnd() {
   // DnD 센서
   const sensors = useSensors(
     useSensor(PointerSensor, {
-      // activationConstraint: {
-      //   distance: 1,
-      // },
+      activationConstraint: {
+        distance: 1,
+      },
     }),
   );
 

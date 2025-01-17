@@ -20,7 +20,7 @@ function SortableItem({ id, book }: SortableItemProps) {
     useSortable({
       id,
     });
-  const { openModal } = useModalStore();
+  const { openModalWithIsbn } = useModalStore();
 
   if (!book.thumbnail)
     return (
@@ -44,7 +44,8 @@ function SortableItem({ id, book }: SortableItemProps) {
         }`}
         key={book.isbn}
         onClick={() => {
-          openModal(book.isbn);
+          console.log(book.isbn);
+          openModalWithIsbn(book.isbn);
         }}
       >
         <Image

@@ -22,7 +22,7 @@ export default function SearchResultUI({
   handleCloseDropDown,
   isModalOpen,
 }: SearchResultProps) {
-  const { openModal } = useModalStore();
+  const { openModalWithData } = useModalStore();
 
   return (
     <ul className="flex flex-col items-center gap-5">
@@ -30,7 +30,7 @@ export default function SearchResultUI({
         <li key={el.isbn} className="searchList">
           <article
             className="relative flex cursor-pointer justify-center"
-            onClick={() => openModal(el)}
+            onClick={() => openModalWithData(el)}
           >
             <picture className="flexCenter relative mx-8 my-3 h-60 w-40 shadow-md">
               <Image
@@ -48,7 +48,7 @@ export default function SearchResultUI({
               handleCloseDropDown={handleCloseDropDown}
             />
 
-            <div className="border-borderColor border" />
+            <div className="border border-borderColor" />
             <div className="my-4 ml-8 mr-12 flex w-8/12 flex-col justify-between gap-2">
               <div className="flex flex-col gap-2">
                 <h2 className="font-styled text-2xl font-extrabold text-font-textPrimary">
