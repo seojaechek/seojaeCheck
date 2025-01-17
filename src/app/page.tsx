@@ -5,8 +5,6 @@ import authors from "@/data/authors";
 import SearchBar from "./components/SearchBar";
 import Carousel from "./components/home/Carousel";
 
-export const revalidate = 86400;
-
 export default async function Home() {
   const randomIndex = Math.floor(Math.random() * 15);
 
