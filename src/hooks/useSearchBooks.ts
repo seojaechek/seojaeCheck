@@ -1,0 +1,24 @@
+"use client";
+
+import { useQuery } from "@tanstack/react-query";
+import { getBookSearch, BookResponse } from "@/libs/apis/searchApi";
+
+export function useSearchBooks(query: string) {
+  return useQuery<BookResponse, Error>({
+    queryKey: ["searchBooks", query],
+    queryFn: () => {
+      // query가 빈 문자열이라면 빈 결과 반환
+      if (!query) {
+        return Promise.resolve({
+          documents: [],
+          meta: { totalCount: 0, pagealbeCount: 0, isEnd: true },
+        });
+      }
+
+      return getBookSearch(query, 1, 50, "accuracy");
+    },
+    // 검색어가 없을 때 API 호출 방지 옵션
+    enabled: Boolean(query),
+    staleTime: 1000 * 60 * 5,
+  });
+}
