@@ -20,8 +20,8 @@ export default function SearchResultContainer({ query }: ContainerProps) {
   const { isOpen: isModalOpen } = useModalStore();
 
   // 전역 서재 상태
-  const { root, container1, container2 } = useLikedBookStore();
-  const combined = [...root, ...container1, ...container2];
+  const { toRead, reading, done } = useLikedBookStore();
+  const combined = [...toRead, ...reading, ...done];
 
   const [openDropDownId, setOpenDropDownId] = useState<string | null>(null);
 
