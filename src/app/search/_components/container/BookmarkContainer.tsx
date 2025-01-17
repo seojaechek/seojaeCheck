@@ -14,8 +14,8 @@ export default function BookmarkContainer({ book, isOpen }: ContainerProps) {
   const { openDropDownId, setOpenDropDownId } = useSearchStore();
 
   // 전역 서재 상태
-  const { root, container1, container2 } = useLikedBookStore();
-  const combined = [...root, ...container1, ...container2];
+  const { toRead, reading, done } = useLikedBookStore();
+  const combined = [...toRead, ...reading, ...done];
 
   function checkDuplicate(isbn: string): boolean {
     return combined.some((b) => b.isbn === isbn);
