@@ -15,16 +15,16 @@ export default function DropDown({
   setShowSelect,
 }: DropDownProps) {
   const [selectedContainer, setSelectedContainer] = useState<
-    "" | "root" | "container1" | "container2"
+    "" | "toRead" | "reading" | "done"
   >("");
 
   const { setItems } = useLikedBookStore();
 
   // 내부 상태 값 ↔ 표시 텍스트
   const containerMap = {
-    root: "읽고 싶은 책",
-    container1: "읽고 있는 책",
-    container2: "다 읽은 책",
+    toRead: "읽고 싶은 책",
+    reading: "읽고 있는 책",
+    done: "다 읽은 책",
   };
 
   // 드롭다운 최상위 div에서 이벤트 전파 중단
@@ -33,9 +33,7 @@ export default function DropDown({
   };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedContainer(
-      e.target.value as "root" | "container1" | "container2",
-    );
+    setSelectedContainer(e.target.value as "toRead" | "reading" | "done");
   };
 
   // 추가 버튼 클릭 시 해당 서재에 책 저장
@@ -79,9 +77,9 @@ export default function DropDown({
         className="w-full border px-2 py-1 text-sm"
       >
         <option value="">-- 서재 선택 --</option>
-        <option value="root">읽고 싶은 책</option>
-        <option value="container1">읽고 있는 책</option>
-        <option value="container2">다 읽은 책</option>
+        <option value="toRead">읽고 싶은 책</option>
+        <option value="reading">읽고 있는 책</option>
+        <option value="done">다 읽은 책</option>
       </select>
       <div className="flex w-full items-center justify-between gap-2">
         <button

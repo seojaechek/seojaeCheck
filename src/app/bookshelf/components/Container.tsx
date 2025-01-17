@@ -22,9 +22,9 @@ export default function Container({ id, items }: ContainerProps) {
   });
 
   function titleConverter(id: string) {
-    if (id === "root") {
+    if (id === "toRead") {
       return "읽을 책";
-    } else if (id === "container1") {
+    } else if (id === "reading") {
       return "읽고 있는 책";
     }
     return "다 읽은 책";
