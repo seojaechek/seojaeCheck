@@ -4,15 +4,15 @@ import topics from "@/data/topics";
 import authors from "@/data/authors";
 import SearchBar from "./components/SearchBar";
 import Carousel from "./components/home/Carousel";
-
-export const revalidate = 86400;
+import GetRevalidationTime from "@/libs/isr/GetRevalidationTime";
 
 export default async function Home() {
   const randomIndex = Math.floor(Math.random() * 15);
+  const revalidationTime = GetRevalidationTime();
 
   const bookData = {
-    topic: await todayTopic(randomIndex),
-    author: await todayAuthors(randomIndex),
+    topic: await todayTopic(randomIndex, revalidationTime),
+    author: await todayAuthors(randomIndex, revalidationTime),
   };
 
   return (
