@@ -15,3 +15,12 @@ export interface likedBook {
   isbn: string;
   thumbnail: string;
 }
+
+export interface BookResponse {
+  documents: Book[];
+  meta: {
+    total_count: number;
+    pageable_count: number;
+    is_end: boolean;
+  };
+}

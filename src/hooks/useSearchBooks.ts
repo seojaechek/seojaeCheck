@@ -1,7 +1,8 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { getBookSearch, BookResponse } from "@/libs/apis/searchApi";
+import { getBookSearch } from "@/libs/apis/searchApi";
+import { BookResponse } from "@/types/common";
 
 export function useSearchBooks(query: string, page: number) {
   return useQuery<BookResponse, Error>({
@@ -15,7 +16,7 @@ export function useSearchBooks(query: string, page: number) {
         });
       }
 
-      return getBookSearch(query, page, 50, "accuracy");
+      return getBookSearch(query, page, 20, "accuracy");
     },
 
     // 검색어가 없을 때 API 호출 방지 옵션
