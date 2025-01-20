@@ -21,6 +21,7 @@ export default function SearchResultUI({
   currentPageNum,
 }: SearchResultProps) {
   const { openModalWithData } = useModalStore();
+  const { openModalWithData } = useModalStore();
 
   const handleBookClick = (book: Book) => {
     openModalWithData(book);
