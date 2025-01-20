@@ -7,10 +7,9 @@ import { useLikedBookStore } from "@/stores/likedBooks";
 
 interface ContainerProps {
   book: Book;
-  isOpen: boolean;
 }
 
-export default function BookmarkContainer({ book, isOpen }: ContainerProps) {
+export default function BookmarkContainer({ book }: ContainerProps) {
   const { openDropDownId, setOpenDropDownId } = useSearchStore();
 
   // 전역 서재 상태
@@ -20,6 +19,8 @@ export default function BookmarkContainer({ book, isOpen }: ContainerProps) {
   function checkDuplicate(isbn: string): boolean {
     return combined.some((b) => b.isbn === isbn);
   }
+
+  const isOpen = openDropDownId === book.isbn;
 
   const handleDropDownToggle = () => {
     if (openDropDownId === book.isbn) {
