@@ -1,8 +1,11 @@
 "use client";
 
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { BookResponse } from "@/types/common";
+import arrow from "/public/icons/PageArrow.svg";
 import { useSearchStore } from "@/stores/searchStore";
+import doubleArrow from "/public/icons/PageDoubleArrow.svg";
 
 interface PaginationProps {
   meta: BookResponse["meta"];
@@ -11,7 +14,7 @@ interface PaginationProps {
 
 export default function Pagination({ meta, currentPageNum }: PaginationProps) {
   const router = useRouter();
-  const { query, setOpenDropDownId } = useSearchStore();
+  const { query, setOpenDropDownId, setCurrentPage } = useSearchStore();
 
   const size = 15;
   const totalCount = meta.pageable_count;
@@ -33,6 +36,7 @@ export default function Pagination({ meta, currentPageNum }: PaginationProps) {
 
   const handlePageChange = (page: number) => {
     setOpenDropDownId(null);
+    setCurrentPage(page);
 
     router.push(`/search?query=${encodeURIComponent(query)}&page=${page}`);
 
@@ -46,31 +50,51 @@ export default function Pagination({ meta, currentPageNum }: PaginationProps) {
   const hasNextBlock = endPage < totalPages;
 
   return (
-    <nav className="flexCenter mt-4 gap-1">
+    <nav className="flexCenter mt-4">
       {/* 첫 페이지 */}
       <button onClick={() => handlePageChange(1)} disabled={currentPage === 1}>
-        {"<<"}
+        <Image
+          src={doubleArrow}
+          alt="첫 페이지로 가기"
+          width={30}
+          height={30}
+          className="-scale-x-100"
+        />
       </button>
 
       {/* 이전 블록 */}
       {hasPrevBlock && (
-        <button onClick={() => handlePageChange(startPage - 1)}>{"<"}</button>
+        <button onClick={() => handlePageChange(startPage - 1)}>
+          <Image
+            src={arrow}
+            alt="첫 페이지로 가기"
+            width={30}
+            height={30}
+            className="-scale-x-100"
+          />
+        </button>
       )}
 
       {/* 페이지 번호들 */}
-      {pagesArr.map((p) => (
+      {pagesArr.map((page) => (
         <button
-          key={p}
-          onClick={() => handlePageChange(p)}
-          className={p === currentPage ? "bg-blue-500 text-white" : "bg-white"}
+          key={page}
+          onClick={() => handlePageChange(page)}
+          className={
+            page === currentPage
+              ? "mx-1 rounded bg-blue-500 px-2 py-1 text-white"
+              : "mx-1 rounded bg-white px-2 py-1"
+          }
         >
-          {p}
+          {page}
         </button>
       ))}
 
       {/* 다음 블록 */}
       {hasNextBlock && (
-        <button onClick={() => handlePageChange(endPage + 1)}>{">"}</button>
+        <button onClick={() => handlePageChange(endPage + 1)}>
+          <Image src={arrow} alt="첫 페이지로 가기" width={30} height={30} />
+        </button>
       )}
 
       {/* 마지막 페이지 */}
@@ -78,7 +102,12 @@ export default function Pagination({ meta, currentPageNum }: PaginationProps) {
         onClick={() => handlePageChange(totalPages)}
         disabled={currentPage === totalPages}
       >
-        {">>"}
+        <Image
+          src={doubleArrow}
+          alt="첫 페이지로 가기"
+          width={30}
+          height={30}
+        />
       </button>
     </nav>
   );
