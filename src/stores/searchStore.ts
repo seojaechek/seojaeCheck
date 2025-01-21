@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface State {
   query: string;
@@ -14,20 +15,27 @@ interface Action {
   resetSearchState: () => void;
 }
 
-export const useSearchStore = create<State & Action>((set) => ({
-  query: "",
-  setQuery: (query) => set({ query }),
-
-  openDropDownId: null,
-  setOpenDropDownId: (id) => set({ openDropDownId: id }),
-
-  currentPage: 1,
-  setCurrentPage: (page) => set({ currentPage: page }),
-
-  resetSearchState: () =>
-    set({
+export const useSearchStore = create<State & Action>()(
+  persist(
+    (set) => ({
       query: "",
-      currentPage: 1,
+      setQuery: (query) => set({ query }),
+
       openDropDownId: null,
+      setOpenDropDownId: (id) => set({ openDropDownId: id }),
+
+      currentPage: 1,
+      setCurrentPage: (page) => set({ currentPage: page }),
+
+      resetSearchState: () =>
+        set({
+          query: "",
+          currentPage: 1,
+          openDropDownId: null,
+        }),
     }),
-}));
+    {
+      name: "searchInfo",
+    },
+  ),
+);
