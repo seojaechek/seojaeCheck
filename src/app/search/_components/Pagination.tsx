@@ -1,11 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { BookResponse } from "@/types/common";
 import arrow from "/public/icons/PageArrow.svg";
 import { useSearchStore } from "@/stores/searchStore";
 import doubleArrow from "/public/icons/PageDoubleArrow.svg";
+import IconButton from "@/app/components/IconButton";
 
 interface PaginationProps {
   meta: BookResponse["meta"];
@@ -18,7 +18,7 @@ export default function Pagination({ meta, currentPageNum }: PaginationProps) {
 
   const size = 15;
   const totalCount = meta.pageable_count;
-  const totalPages = Math.ceil(totalCount / size);
+  const totalPages = Math.min(Math.ceil(totalCount / size), 50);
 
   const currentPage = Math.min(Math.max(currentPageNum, 1), totalPages);
 
@@ -26,7 +26,7 @@ export default function Pagination({ meta, currentPageNum }: PaginationProps) {
 
   const blockSize = 10;
   const blockIndex = Math.floor((currentPage - 1) / blockSize);
-  const startPage = blockIndex * blockIndex + 1;
+  const startPage = blockIndex * blockSize + 1;
   const endPage = Math.min(startPage + blockSize - 1, totalPages);
 
   const pagesArr: number[] = [];
@@ -52,27 +52,28 @@ export default function Pagination({ meta, currentPageNum }: PaginationProps) {
   return (
     <nav className="flexCenter mt-4">
       {/* 첫 페이지 */}
-      <button onClick={() => handlePageChange(1)} disabled={currentPage === 1}>
-        <Image
-          src={doubleArrow}
-          alt="첫 페이지로 가기"
-          width={30}
-          height={30}
-          className="-scale-x-100"
-        />
-      </button>
+      <IconButton
+        type="button"
+        src={doubleArrow}
+        alt="첫 페이지로 가기"
+        width={30}
+        height={30}
+        imgClassName="-scale-x-100"
+        onClick={() => handlePageChange(1)}
+        disabled={currentPage === 1}
+      />
 
       {/* 이전 블록 */}
       {hasPrevBlock && (
-        <button onClick={() => handlePageChange(startPage - 1)}>
-          <Image
-            src={arrow}
-            alt="첫 페이지로 가기"
-            width={30}
-            height={30}
-            className="-scale-x-100"
-          />
-        </button>
+        <IconButton
+          type="button"
+          src={arrow}
+          alt="이전 페이지로 가기"
+          width={30}
+          height={30}
+          imgClassName="-scale-x-100"
+          onClick={() => handlePageChange(startPage - 1)}
+        />
       )}
 
       {/* 페이지 번호들 */}
@@ -92,23 +93,26 @@ export default function Pagination({ meta, currentPageNum }: PaginationProps) {
 
       {/* 다음 블록 */}
       {hasNextBlock && (
-        <button onClick={() => handlePageChange(endPage + 1)}>
-          <Image src={arrow} alt="첫 페이지로 가기" width={30} height={30} />
-        </button>
+        <IconButton
+          type="button"
+          src={arrow}
+          alt="다음 페이지로 가기"
+          width={30}
+          height={30}
+          onClick={() => handlePageChange(endPage - 1)}
+        />
       )}
 
       {/* 마지막 페이지 */}
-      <button
+      <IconButton
+        type="button"
+        src={doubleArrow}
+        alt="마지막 페이지로 가기"
+        width={30}
+        height={30}
         onClick={() => handlePageChange(totalPages)}
         disabled={currentPage === totalPages}
-      >
-        <Image
-          src={doubleArrow}
-          alt="첫 페이지로 가기"
-          width={30}
-          height={30}
-        />
-      </button>
+      />
     </nav>
   );
 }
