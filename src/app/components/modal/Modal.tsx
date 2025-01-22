@@ -40,7 +40,7 @@ export default function Modal() {
     <>
       {data && (
         <div className="fixed z-50 flex h-screen w-screen items-center justify-center bg-black bg-opacity-50">
-          <div className="relative flex h-[610px] w-[600px] flex-col justify-start gap-7 border-2 border-black bg-white p-16 drop-shadow-black">
+          <div className="relative flex w-[600px] flex-col justify-start gap-7 border-2 border-black bg-white p-16 drop-shadow-black">
             <Image
               onClick={closeModal}
               src={CloseIcon}
@@ -57,7 +57,12 @@ export default function Modal() {
               />
             </div>
             <div className="flex flex-col gap-3">
-              <h1 className="line-clamp-1 text-4xl font-black">{data.title}</h1>
+              <h1
+                className="line-clamp-1 text-4xl font-black"
+                title={data.title}
+              >
+                {data.title}
+              </h1>
               {contentList.map((data) => {
                 return (
                   <ModalContent
@@ -69,10 +74,10 @@ export default function Modal() {
               })}
             </div>
             {data.contents !== "" && (
-              <div className="flex h-24 flex-col gap-3">
+              <div className="flex h-28 flex-col gap-3">
                 <span className="text-xl font-semibold">소개</span>
-                <p className="line-clamp-3 text-sm font-normal">
-                  {data.contents}
+                <p className="scrollbar overflow-auto text-sm font-normal">
+                  {data.contents}...
                 </p>
               </div>
             )}
