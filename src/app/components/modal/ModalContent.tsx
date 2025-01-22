@@ -5,11 +5,13 @@ type IProps = {
 
 export default function ModalContent(props: IProps) {
   const formatList = (data: string[]) => {
-    return data.reduce(
-      (init: string, author: string, i: number) =>
-        i !== 0 ? init + `, ${author}` : init + author,
-      "",
-    );
+    if (data.length === 1) {
+      return data[0];
+    } else if (data.length <= 2) {
+      return data.join(", ");
+    } else {
+      return `${data[0]}, ${data[1]} 외 ${data.length - 2}명`;
+    }
   };
 
   if (typeof props.content === "object" && props.content.length === 0) {
