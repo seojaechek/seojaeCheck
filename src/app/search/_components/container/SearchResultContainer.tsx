@@ -1,69 +1,115 @@
 "use client";
 
 import { useState } from "react";
-
-import BookListSkeleton from "../BookListSkeleton";
-import SearchResultUI from "../presentation/SearchResultUI";
-
 import { useModalStore } from "@/stores/modal";
-import { useSearchBooks } from "@/hooks/useSearchBooks";
+import { useSearchStore } from "@/stores/searchStore";
 import { useLikedBookStore } from "@/stores/likedBooks";
+import SearchResult from "../presentation/SearchResult";
+import { Book, BookResponse, likedBook } from "@/types/common";
 
 interface ContainerProps {
   query: string;
+  page: number;
+  searchData: BookResponse;
 }
 
-export default function SearchResultContainer({ query }: ContainerProps) {
-  // 검색 API 호출, 모달 스토어
-  const { data, isLoading, isFetching } = useSearchBooks(query);
+export default function SearchResultContainer({
+  query,
+  page,
+  searchData,
+}: ContainerProps) {
+  const { documents, meta } = searchData;
+  const { isOpen: isModalOpen, openModalWithData } = useModalStore();
+  const { toRead, reading, done, setItems } = useLikedBookStore();
+  const { openDropDownId, setOpenDropDownId } = useSearchStore();
+  const [selectedBookshelf, setSelectedBookshelf] = useState<
+    "" | "toRead" | "reading" | "done"
+  >("");
 
-  const { isOpen: isModalOpen } = useModalStore();
-
-  // 전역 서재 상태
-  const { toRead, reading, done } = useLikedBookStore();
   const combined = [...toRead, ...reading, ...done];
+  const BookshelfMap = {
+    toRead: "읽고 싶은 책",
+    reading: "읽고 있는 책",
+    done: "다 읽은 책",
+  };
 
-  const [openDropDownId, setOpenDropDownId] = useState<string | null>(null);
+  function checkDuplicate(isbn: string): boolean {
+    return combined.some((b) => b.isbn === isbn);
+  }
 
-  // 열러 있던 isbn와 같으면 닫기(toggle), 다르면 열기
-  const handleCloseDropDown = (isbn: string) => {
-    setOpenDropDownId((prev) => (prev === isbn ? null : isbn));
+  const handleDropDownToggle = (isbn: string) => {
+    if (openDropDownId === isbn) {
+      setOpenDropDownId(null);
+    } else {
+      setOpenDropDownId(isbn);
+    }
   };
 
   // 북마크 클릭 이벤트
-  const handleOpenDropDown = (isbn: string) => {
-    // 중복 체크
-    const isExist = combined.some((book) => book.isbn === isbn);
-    if (isExist) {
-      alert("이미 서재에 존재합니다!");
+  const handleClickBookmark = (e: React.MouseEvent, isbn: string) => {
+    // 부모 article 클릭 이벤트 차단
+    e.stopPropagation();
 
+    // 중복 체크
+    if (checkDuplicate(isbn)) {
+      alert("이미 서재에 존재합니다!");
       setOpenDropDownId(null);
       return;
     }
 
-    handleCloseDropDown(isbn);
+    handleDropDownToggle(isbn);
+  };
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedBookshelf(e.target.value as "toRead" | "reading" | "done");
+  };
+
+  const handleConfirm = (title: string, isbn: string, thumbnail: string) => {
+    const newBook: likedBook = { title, isbn, thumbnail };
+    if (!selectedBookshelf) {
+      alert("책장을 선택해주세요!");
+      return;
+    }
+
+    const bookshelfArr = useLikedBookStore.getState()[selectedBookshelf];
+    const updated = [...bookshelfArr, newBook];
+    setItems(selectedBookshelf, updated);
+
+    alert(
+      `[${title}] 책이 ${BookshelfMap[selectedBookshelf]}에 추가되었습니다.`,
+    );
+
+    setOpenDropDownId(null);
+    setSelectedBookshelf("");
+  };
+
+  const handleBookClick = (book: Book) => {
+    openModalWithData(book);
   };
 
   // 검색어가 없을 때
   if (!query) {
     return <p className="mt-4 text-4xl font-black">검색어가 없습니다.</p>;
   }
-  // 로딩 중
-  if (isLoading || isFetching) {
-    return <BookListSkeleton />;
-  }
+
   // query에 맞는 결과가 없을 때
-  if (!data || data.documents.length === 0) {
+  if (documents.length === 0) {
     return <p className="mt-4 text-4xl font-black">검색 결과가 없습니다.</p>;
   }
 
   return (
-    <SearchResultUI
-      books={data.documents}
-      openDropDownId={openDropDownId}
-      handleOpenDropDown={handleOpenDropDown}
-      handleCloseDropDown={handleCloseDropDown}
+    <SearchResult
+      meta={meta}
+      allDocs={documents}
+      currentPageNum={page}
       isModalOpen={isModalOpen}
+      clickBook={handleBookClick}
+      goToBookShelf={handleConfirm}
+      openDropDownId={openDropDownId}
+      selectChange={handleSelectChange}
+      selectBookshelf={selectedBookshelf}
+      setOpenDropDownId={setOpenDropDownId}
+      clickBookmark={handleClickBookmark}
     />
   );
 }

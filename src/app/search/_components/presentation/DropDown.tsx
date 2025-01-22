@@ -1,15 +1,21 @@
 interface DropDownProps {
+  title: string;
+  isbn: string;
+  thumbnail: string;
   selectedBookshelf: string;
   handleSelectChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  handleConfirm: () => void;
-  handleCancel: () => void;
+  handleConfirm: (title: string, isbn: string, thumbnail: string) => void;
+  setOpenDropDownId: (isbn: string | null) => void;
 }
 
-export default function DropDownUI({
-  selectedBookshelf,
-  handleSelectChange,
+export default function DropDown({
+  title,
+  isbn,
+  thumbnail,
   handleConfirm,
-  handleCancel,
+  handleSelectChange,
+  selectedBookshelf,
+  setOpenDropDownId,
 }: DropDownProps) {
   return (
     <form
@@ -24,7 +30,7 @@ export default function DropDownUI({
         name="bookshelves"
         id="bookshelf-select"
         value={selectedBookshelf}
-        onChange={handleSelectChange}
+        onChange={(e) => handleSelectChange(e)}
         className="w-full border px-2 py-1 text-sm"
       >
         <option value="">-- 서재 선택 --</option>
@@ -34,14 +40,14 @@ export default function DropDownUI({
       </select>
       <div className="flex w-full items-center justify-between gap-2">
         <button
-          onClick={handleConfirm}
+          onClick={() => handleConfirm(title, isbn, thumbnail)}
           className="w-full rounded bg-font-textPrimary px-2 py-1 text-sm text-brown-1"
         >
           추가
         </button>
         <button
           className="w-full rounded bg-gray-300 px-2 py-1 text-sm text-black"
-          onClick={handleCancel}
+          onClick={() => setOpenDropDownId(null)}
         >
           취소
         </button>

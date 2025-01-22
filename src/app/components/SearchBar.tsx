@@ -1,18 +1,21 @@
 "use client";
 
 import Image from "next/image";
-import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
+import { useSearchStore } from "@/stores/searchStore";
 import searchBtn from "/public/icons/SearchSearch.svg";
 
 export default function SearchBar() {
   const router = useRouter();
-  const [inputValue, setInputValue] = useState("");
+  const { query, setQuery, currentPage } = useSearchStore();
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!inputValue.trim()) return;
-    router.push(`/search?query=${encodeURIComponent(inputValue)}`);
+
+    if (!query.trim()) return;
+    router.push(
+      `/search?query=${encodeURIComponent(query)}&page=${currentPage}`,
+    );
   };
   return (
     <form
@@ -26,11 +29,11 @@ export default function SearchBar() {
       </label>
       <input
         type="search"
-        value={inputValue}
+        value={query}
         id="searchInput"
         placeholder="Search..."
         aria-describedby="search-hint"
-        onChange={(e) => setInputValue(e.target.value)}
+        onChange={(e) => setQuery(e.target.value)}
         className="grow text-lg text-font-textPrimary outline-none"
       />
       <button type="submit" aria-label="검색 버튼" className="search">

@@ -1,14 +1,5 @@
-import { Book } from "@/types/common";
+import { BookResponse } from "@/types/common";
 import axiosInstance from "./axiosInstance";
-
-export interface BookResponse {
-  documents: Book[];
-  meta: {
-    totalCount: number;
-    pagealbeCount: number;
-    isEnd: boolean;
-  };
-}
 
 /**
  * @param query 검색어
@@ -19,14 +10,14 @@ export interface BookResponse {
 
 export async function getBookSearch(
   query: string,
-  page: number = 1,
+  page: number,
   size: number = 10,
   sort: "accuracy",
 ): Promise<BookResponse> {
   if (!query) {
     return {
       documents: [],
-      meta: { totalCount: 0, pagealbeCount: 0, isEnd: true },
+      meta: { total_count: 0, pageable_count: 0, is_end: true },
     };
   }
 
