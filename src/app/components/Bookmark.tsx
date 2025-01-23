@@ -1,6 +1,6 @@
 "use client";
 
-import Dropdown from "./DropDown";
+import Dropdown from "./Dropdown";
 
 import { Book } from "@/types/common";
 import IconButton from "@/app/components/IconButton";
@@ -10,10 +10,15 @@ import { useSearchStore } from "@/stores/searchStore";
 
 interface BookmarkProps {
   book: Book;
-  modalStyle?: string;
+  btnPosition: string;
+  dropdownPosition: string;
 }
 
-export default function Bookmark({ book, modalStyle }: BookmarkProps) {
+export default function Bookmark({
+  book,
+  btnPosition,
+  dropdownPosition,
+}: BookmarkProps) {
   const { openDropdownId, setOpenDropdownId } = useSearchStore();
   const { toRead, reading, done } = useLikedBookStore();
   const isOpenDropdown = openDropdownId === book?.isbn;
@@ -46,9 +51,9 @@ export default function Bookmark({ book, modalStyle }: BookmarkProps) {
     handleDropdownToggle(isbn);
   };
   return (
-    <section className={`${modalStyle} absolute right-5 top-4`}>
+    <>
       <IconButton
-        buttonClassName="group cursor-pointer"
+        buttonClassName={`${btnPosition} group absolute top-4 z-10 cursor-pointer`}
         onClick={(e) => handleClickBookmark(e, book.isbn)}
         src={bookmarkIcon}
         width={30}
@@ -61,9 +66,9 @@ export default function Bookmark({ book, modalStyle }: BookmarkProps) {
           title={book.title}
           isbn={book.isbn}
           thumbnail={book.thumbnail}
-          modalStyle="left-5"
+          dropdownPosition={dropdownPosition}
         />
       )}
-    </section>
+    </>
   );
 }

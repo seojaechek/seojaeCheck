@@ -32,7 +32,11 @@ export default function SearchResult({
                   />
                 </picture>
 
-                <Bookmark book={book} />
+                <Bookmark
+                  book={book}
+                  btnPosition={"right-5"}
+                  dropdownPosition={"right-5 w-1/4"}
+                />
 
                 <div className="border border-borderColor" />
                 <div className="my-4 ml-8 mr-14 flex w-8/12 flex-col justify-between gap-2">

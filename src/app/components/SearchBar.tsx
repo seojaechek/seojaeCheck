@@ -22,7 +22,7 @@ export default function SearchBar() {
       role="search"
       aria-label="도서 검색"
       onSubmit={handleSubmit}
-      className="mb-14 flex w-2/6 min-w-72 rounded-lg bg-[#fefefe] px-4 py-5 shadow-sm"
+      className="mb-14 flex w-5/12 min-w-72 rounded-lg bg-white px-4 py-5 shadow-sm"
     >
       <label htmlFor="searchInput" className="sr-only">
         검색

@@ -74,7 +74,11 @@ export default function Modal() {
                 );
               })}
             </div>
-            <Bookmark book={data} modalStyle="left-5" />
+            <Bookmark
+              book={data}
+              btnPosition={"left-5"}
+              dropdownPosition={"left-5 w-1/3"}
+            />
             {data.contents !== "" && (
               <div className="flex h-28 flex-col gap-3">
                 <span className="text-xl font-semibold">소개</span>

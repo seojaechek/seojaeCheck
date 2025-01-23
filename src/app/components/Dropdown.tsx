@@ -9,9 +9,15 @@ interface DropdownProps {
   title: string;
   isbn: string;
   thumbnail: string;
+  dropdownPosition: string;
 }
 
-export default function Dropdown({ title, isbn, thumbnail }: DropdownProps) {
+export default function Dropdown({
+  title,
+  isbn,
+  thumbnail,
+  dropdownPosition,
+}: DropdownProps) {
   const [selectedBookshelf, setSelectedBookshelf] = useState<
     "" | "toRead" | "reading" | "done"
   >();
@@ -44,7 +50,7 @@ export default function Dropdown({ title, isbn, thumbnail }: DropdownProps) {
   return (
     <form
       action=""
-      className="flex flex-col items-center gap-3 rounded border bg-white p-5 shadow-lg"
+      className={`${dropdownPosition} absolute flex flex-col items-center gap-3 rounded border bg-white p-5 shadow-lg`}
       onClick={(e) => e.stopPropagation()}
     >
       <label className="mr-2 text-sm font-semibold">
