@@ -7,6 +7,7 @@ import { useModalStore } from "@/stores/modal";
 import ModalContent from "./ModalContent";
 
 import CloseIcon from "/public/icons/Cancel.png";
+import Bookmark from "../Bookmark";
 
 export default function Modal() {
   const { closeModal, data } = useModalStore();
@@ -68,6 +69,7 @@ export default function Modal() {
                 );
               })}
             </div>
+            <Bookmark book={data} modalStyle="left-5" />
             {data.contents !== "" && (
               <div className="flex h-24 flex-col gap-3">
                 <span className="text-xl font-semibold">소개</span>
