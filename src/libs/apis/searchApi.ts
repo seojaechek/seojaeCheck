@@ -12,7 +12,7 @@ export async function getBookSearch(
   query: string,
   page: number,
   size: number = 10,
-  sort: "accuracy",
+  sort: string,
 ): Promise<BookResponse> {
   if (!query) {
     return {

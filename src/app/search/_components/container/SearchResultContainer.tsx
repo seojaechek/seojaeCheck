@@ -4,12 +4,14 @@ import SearchResult from "../presentation/SearchResult";
 interface ContainerProps {
   query: string;
   page: number;
+  sort: string;
   searchData: BookResponse;
 }
 
 export default function SearchResultContainer({
   query,
   page,
+  sort,
   searchData,
 }: ContainerProps) {
   const { documents, meta } = searchData;
@@ -24,5 +26,14 @@ export default function SearchResultContainer({
     return <p className="mt-4 text-4xl font-black">검색 결과가 없습니다.</p>;
   }
 
-  return <SearchResult meta={meta} allDocs={documents} currentPageNum={page} />;
+  return (
+    <SearchResult
+      query={query}
+      page={page}
+      sort={sort}
+      meta={meta}
+      allDocs={documents}
+      currentPageNum={page}
+    />
+  );
 }

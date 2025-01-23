@@ -7,25 +7,24 @@ interface SearchProps {
   searchParams: {
     query?: string;
     page?: string;
+    sort?: string;
   };
 }
 
 export default async function Search({ searchParams }: SearchProps) {
   const query = searchParams?.query ?? "";
   const page = parseInt(searchParams?.page ?? "1", 10);
-  const searchData: BookResponse = await getBookSearch(
-    query,
-    page,
-    15,
-    "accuracy",
-  );
+  const sort = searchParams?.sort ?? "accuracy";
+  const searchData: BookResponse = await getBookSearch(query, page, 15, sort);
 
   return (
-    <section className="flexCenter mb-10 mt-20 flex-col font-main">
+    <section className="flexCenter relative mb-10 mt-20 flex-col font-main">
       <SearchBar />
+
       <SearchResultContainer
         query={query}
         page={page}
+        sort={sort}
         searchData={searchData}
       />
     </section>

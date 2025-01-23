@@ -4,20 +4,29 @@ import Pagination from "../Pagination";
 import Bookmark from "@/app/components/Bookmark";
 
 import { Book, BookResponse } from "@/types/common";
+import SortSearch from "../SortSelect";
 
 interface SearchResultProps {
+  query: string;
+  page: number;
+  sort: string;
+
   meta: BookResponse["meta"];
   allDocs: Book[];
   currentPageNum: number;
 }
 
 export default function SearchResult({
+  query,
+  page,
+  sort,
   meta,
   allDocs,
   currentPageNum,
 }: SearchResultProps) {
   return (
     <section>
+      <SortSearch query={query} page={page} sort={sort} />
       <ul className="flex flex-col items-center gap-5">
         {allDocs.map((book) => {
           return (
