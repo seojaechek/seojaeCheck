@@ -2,7 +2,6 @@ import Image from "next/image";
 
 interface IconButtonProps {
   key?: number;
-  type: "submit" | "reset" | "button" | undefined;
   src: string;
   alt: string;
   width: number;
@@ -16,7 +15,6 @@ interface IconButtonProps {
 
 export default function IconButton({
   key,
-  type,
   src,
   alt,
   width,
@@ -29,7 +27,6 @@ export default function IconButton({
   return (
     <button
       key={key}
-      type={type}
       onClick={onClick}
       disabled={disabled}
       className={buttonClassName}
