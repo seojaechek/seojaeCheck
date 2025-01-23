@@ -1,49 +1,28 @@
 import Image from "next/image";
-import Bookmark from "./Bookmark";
-import DropDown from "./DropDown";
+
 import Pagination from "../Pagination";
-import Modal from "@/app/components/modal/Modal";
+import Bookmark from "@/app/components/Bookmark";
+
 import { Book, BookResponse } from "@/types/common";
 
 interface SearchResultProps {
   meta: BookResponse["meta"];
   allDocs: Book[];
-  isModalOpen: boolean;
   currentPageNum: number;
-  selectBookshelf: string;
-  openDropDownId: string | null;
-
-  clickBook: (book: Book) => void;
-  setOpenDropDownId: (id: string | null) => void;
-  clickBookmark: (e: React.MouseEvent, isbn: string) => void;
-  selectChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  goToBookShelf: (title: string, isbn: string, thumbnail: string) => void;
 }
 
 export default function SearchResult({
   meta,
   allDocs,
-  isModalOpen,
   currentPageNum,
-  selectChange,
-  openDropDownId,
-  goToBookShelf,
-  clickBookmark,
-  clickBook,
-  setOpenDropDownId,
-  selectBookshelf,
 }: SearchResultProps) {
   return (
     <section>
       <ul className="flex flex-col items-center gap-5">
         {allDocs.map((book) => {
-          const isOpen = openDropDownId === book.isbn;
           return (
             <li key={book.isbn} className="searchList">
-              <article
-                className="relative flex cursor-pointer justify-center"
-                onClick={() => clickBook(book)}
-              >
+              <article className="flexCenter relative">
                 <picture className="flexCenter relative mx-8 my-3 h-60 w-40 shadow-md">
                   <Image
                     src={book.thumbnail}
@@ -53,18 +32,7 @@ export default function SearchResult({
                   />
                 </picture>
 
-                <Bookmark book={book} onClickBookmark={clickBookmark} />
-                {isOpen && (
-                  <DropDown
-                    title={book.title}
-                    isbn={book.isbn}
-                    thumbnail={book.thumbnail}
-                    handleConfirm={goToBookShelf}
-                    handleSelectChange={selectChange}
-                    selectedBookshelf={selectBookshelf}
-                    setOpenDropDownId={setOpenDropDownId}
-                  />
-                )}
+                <Bookmark book={book} />
 
                 <div className="border border-borderColor" />
                 <div className="my-4 ml-8 mr-14 flex w-8/12 flex-col justify-between gap-2">
@@ -72,7 +40,7 @@ export default function SearchResult({
                     <h2 className="font-styled text-2xl font-extrabold text-font-textPrimary">
                       {book.title}
                     </h2>
-                    <p className="line-clamp-3 text-sm font-medium text-font-textSecondary">
+                    <p className="line-clamp-4 text-sm font-medium text-font-textSecondary">
                       {book.contents}
                     </p>
                   </div>
@@ -107,7 +75,6 @@ export default function SearchResult({
         })}
       </ul>
       <Pagination meta={meta} currentPageNum={currentPageNum} />
-      {isModalOpen && <Modal />}
     </section>
   );
 }
