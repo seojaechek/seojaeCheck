@@ -22,8 +22,8 @@ export default function SearchResult({
         {allDocs.map((book) => {
           return (
             <li key={book.isbn} className="searchList">
-              <article className="flexCenter relative">
-                <picture className="flexCenter relative mx-8 my-3 h-60 w-40 shadow-md">
+              <article className="relative flex justify-center">
+                <picture className="flexCenter relative mx-8 my-3 h-60 w-36 self-center shadow-md">
                   <Image
                     src={book.thumbnail}
                     fill
@@ -32,13 +32,8 @@ export default function SearchResult({
                   />
                 </picture>
 
-                <Bookmark
-                  book={book}
-                  btnPosition={"right-5"}
-                  dropdownPosition={"right-5 w-1/4"}
-                />
-
                 <div className="border border-borderColor" />
+
                 <div className="my-4 ml-8 mr-14 flex w-8/12 flex-col justify-between gap-2">
                   <div className="flex flex-col gap-2">
                     <h2 className="font-styled text-2xl font-extrabold text-font-textPrimary">
@@ -65,14 +60,35 @@ export default function SearchResult({
                       <dt className="searchDetail">출판사</dt>
                       <dd className="font-semibold">{book.publisher}</dd>
                     </div>
+
                     <div className="flex">
                       <dt className="searchDetail">출판 날짜</dt>
                       <dd className="font-semibold">
                         {book.datetime ? book.datetime.split("T")[0] : "x"}
                       </dd>
                     </div>
+
+                    <div className="flex">
+                      <dt className="searchDetail">ISBN-10</dt>
+                      <dd className="font-semibold">
+                        {book.isbn.split(" ")[0]}
+                      </dd>
+                    </div>
+
+                    <div className="flex">
+                      <dt className="searchDetail">ISBN-13</dt>
+                      <dd className="font-semibold">
+                        {book.isbn.split(" ")[1]}
+                      </dd>
+                    </div>
                   </dl>
                 </div>
+
+                <Bookmark
+                  book={book}
+                  btnPosition={"right-5"}
+                  dropdownPosition={"right-5 w-1/4"}
+                />
               </article>
             </li>
           );

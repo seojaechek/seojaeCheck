@@ -26,6 +26,12 @@ export default function Dropdown({
   const { toRead, reading, done, setItems } = useLikedBookStore();
   const shelves = { toRead, reading, done };
 
+  const Bookshelves = {
+    toRead: "읽고 싶은 책",
+    reading: "읽고 있는 책",
+    done: "다 읽은 책",
+  };
+
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectedBookshelf(e.target.value as "toRead" | "reading" | "done");
   };
@@ -42,7 +48,9 @@ export default function Dropdown({
 
     setItems(selectedBookshelf, updated);
 
-    alert(`[${title}] 책이 [${selectedBookshelf}]에 추가되었습니다.`);
+    alert(
+      `[${title}] 책이 [${Bookshelves[selectedBookshelf]}]에 추가되었습니다.`,
+    );
     setOpenDropdownId(null);
     setSelectedBookshelf("");
   };

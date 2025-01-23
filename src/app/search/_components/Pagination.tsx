@@ -97,7 +97,7 @@ export default function Pagination({ meta, currentPageNum }: PaginationProps) {
           alt="다음 페이지로 가기"
           width={30}
           height={30}
-          onClick={() => handlePageChange(endPage - 1)}
+          onClick={() => handlePageChange(endPage + 1)}
         />
       )}
 
