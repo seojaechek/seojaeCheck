@@ -14,7 +14,7 @@ interface PaginationProps {
 
 export default function Pagination({ meta, currentPageNum }: PaginationProps) {
   const router = useRouter();
-  const { query, setOpenDropDownId, setCurrentPage } = useSearchStore();
+  const { query, setOpenDropdownId, setCurrentPage } = useSearchStore();
 
   const size = 15;
   const totalCount = meta.pageable_count;
@@ -26,6 +26,7 @@ export default function Pagination({ meta, currentPageNum }: PaginationProps) {
 
   const blockSize = 10;
   const blockIndex = Math.floor((currentPage - 1) / blockSize);
+
   const startPage = blockIndex * blockSize + 1;
   const endPage = Math.min(startPage + blockSize - 1, totalPages);
 
@@ -35,7 +36,7 @@ export default function Pagination({ meta, currentPageNum }: PaginationProps) {
   }
 
   const handlePageChange = (page: number) => {
-    setOpenDropDownId(null);
+    setOpenDropdownId(null);
     setCurrentPage(page);
 
     router.push(`/search?query=${encodeURIComponent(query)}&page=${page}`);
@@ -53,7 +54,6 @@ export default function Pagination({ meta, currentPageNum }: PaginationProps) {
     <nav className="flexCenter mt-4">
       {/* 첫 페이지 */}
       <IconButton
-        type="button"
         src={doubleArrow}
         alt="첫 페이지로 가기"
         width={30}
@@ -66,7 +66,6 @@ export default function Pagination({ meta, currentPageNum }: PaginationProps) {
       {/* 이전 블록 */}
       {hasPrevBlock && (
         <IconButton
-          type="button"
           src={arrow}
           alt="이전 페이지로 가기"
           width={30}
@@ -94,18 +93,16 @@ export default function Pagination({ meta, currentPageNum }: PaginationProps) {
       {/* 다음 블록 */}
       {hasNextBlock && (
         <IconButton
-          type="button"
           src={arrow}
           alt="다음 페이지로 가기"
           width={30}
           height={30}
-          onClick={() => handlePageChange(endPage - 1)}
+          onClick={() => handlePageChange(endPage + 1)}
         />
       )}
 
       {/* 마지막 페이지 */}
       <IconButton
-        type="button"
         src={doubleArrow}
         alt="마지막 페이지로 가기"
         width={30}

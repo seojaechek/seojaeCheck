@@ -10,9 +10,8 @@ axiosInstance.interceptors.request.use((config) => {
     throw new Error("NEXT_PUBLIC_KAKAO_API_KEY is not defined");
   }
 
-  config.headers[
-    "Authorization"
-  ] = `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_API_KEY}`;
+  config.headers["Authorization"] =
+    `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_API_KEY}`;
   return config;
 });
 
