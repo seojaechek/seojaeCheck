@@ -1,10 +1,11 @@
 import Image from "next/image";
+import noImage from "/public/NoBookImage.jpeg";
 
+import SortSearch from "../SortSelect";
 import Pagination from "../Pagination";
 import Bookmark from "@/app/components/Bookmark";
 
 import { Book, BookResponse } from "@/types/common";
-import SortSearch from "../SortSelect";
 
 interface SearchResultProps {
   query: string;
@@ -34,7 +35,7 @@ export default function SearchResult({
               <article className="relative flex justify-center">
                 <picture className="flexCenter relative mx-8 my-3 h-60 w-36 self-center shadow-md">
                   <Image
-                    src={book.thumbnail}
+                    src={book.thumbnail || noImage}
                     fill
                     alt={`${book.title} 표지`}
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
