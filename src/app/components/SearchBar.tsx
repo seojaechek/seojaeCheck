@@ -7,15 +7,13 @@ import searchBtn from "/public/icons/SearchSearch.svg";
 
 export default function SearchBar() {
   const router = useRouter();
-  const { query, setQuery, currentPage } = useSearchStore();
+  const { query, setQuery } = useSearchStore();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!query.trim()) return;
-    router.push(
-      `/search?query=${encodeURIComponent(query)}&page=${currentPage}`,
-    );
+    router.push(`/search?query=${encodeURIComponent(query)}&page=1`);
   };
   return (
     <form

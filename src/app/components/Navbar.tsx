@@ -2,8 +2,9 @@
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
-import Logo from "/public/logo.png";
+import Logo from "/public/Logo.png";
 import BookIcon from "/public/icons/Books.png";
+
 import { useSearchStore } from "@/stores/searchStore";
 
 export default function Navbar() {
@@ -11,13 +12,15 @@ export default function Navbar() {
   const { resetSearchState } = useSearchStore();
 
   return (
-    <div className="flex h-[100px] w-full items-center justify-between bg-navbar">
+    <div className="flex h-[100px] w-full items-center justify-between bg-navbar px-4">
       <Image
         className="cursor-pointer"
         src={Logo}
-        sizes="100"
-        priority={true}
         alt="Logo"
+        width={80}
+        height={80}
+        priority={true}
+        style={{ width: 80, height: 80 }}
         onClick={() => {
           resetSearchState();
           router.push("/");
@@ -27,7 +30,8 @@ export default function Navbar() {
         <Image
           className="cursor-pointer"
           src={BookIcon}
-          sizes="28"
+          width={45}
+          height={45}
           alt="books"
           onClick={() => {
             resetSearchState();

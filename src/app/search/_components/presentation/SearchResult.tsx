@@ -46,7 +46,7 @@ export default function SearchResult({
 
                 <div className="my-4 ml-8 mr-14 flex w-8/12 flex-col justify-between gap-2">
                   <div className="flex flex-col gap-2">
-                    <h2 className="font-styled text-2xl font-extrabold text-font-textPrimary">
+                    <h2 className="text-2xl font-black text-font-textPrimary">
                       {book.title}
                     </h2>
                     <p className="line-clamp-4 text-sm font-medium text-font-textSecondary">
