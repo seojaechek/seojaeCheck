@@ -14,7 +14,7 @@ interface PaginationProps {
 
 export default function Pagination({ meta, currentPageNum }: PaginationProps) {
   const router = useRouter();
-  const { query, setOpenDropdownId, setCurrentPage } = useSearchStore();
+  const { query, setOpenDropdownId } = useSearchStore();
 
   const size = 15;
   const totalCount = meta.pageable_count;
@@ -37,7 +37,6 @@ export default function Pagination({ meta, currentPageNum }: PaginationProps) {
 
   const handlePageChange = (page: number) => {
     setOpenDropdownId(null);
-    setCurrentPage(page);
 
     router.push(`/search?query=${encodeURIComponent(query)}&page=${page}`);
 
