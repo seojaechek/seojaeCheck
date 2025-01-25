@@ -27,10 +27,11 @@ body {
   .pause {
     animation-play-state: paused;
   }
-  .modal-open {
+  /* .modal-open {
     height: 100vh;
     overflow-y: hidden;
-  }
+  } */
+
   .scrollbar::-webkit-scrollbar {
     width: 10px;
     height: 20px;
