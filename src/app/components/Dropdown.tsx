@@ -78,12 +78,14 @@ export default function Dropdown({
       </select>
       <div className="flex w-full items-center justify-between gap-2">
         <button
+          type="button"
           onClick={handleConfirm}
           className="w-full rounded bg-font-textPrimary px-2 py-1 text-sm text-brown-1"
         >
           추가
         </button>
         <button
+          type="button"
           className="w-full rounded bg-gray-300 px-2 py-1 text-sm text-black"
           onClick={() => setOpenDropdownId(null)}
         >
