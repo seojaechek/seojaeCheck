@@ -2,7 +2,6 @@ import { todayTopic } from "@/libs/apis/todayTopic";
 import { todayAuthors } from "../libs/apis/todayAuthors";
 import topics from "@/data/topics";
 import authors from "@/data/authors";
-import SearchBar from "./components/SearchBar";
 import Carousel from "./components/home/Carousel";
 import GetRevalidationTime from "@/libs/isr/GetRevalidationTime";
 
@@ -16,8 +15,7 @@ export default async function Home() {
   };
 
   return (
-    <main className="mt-[121px] flex w-full flex-col items-center gap-4">
-      <SearchBar />
+    <main className="mt-20 flex w-full flex-col items-center gap-4">
       <div className="flex w-2/3 flex-col gap-4 px-5 py-3">
         <div className="flex items-center gap-7">
           <h1 className="text-2xl font-bold">오늘의 주제</h1>
