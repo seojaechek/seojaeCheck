@@ -14,15 +14,15 @@ export default function Navbar() {
   const { resetSearchState } = useSearchStore();
 
   return (
-    <div className="flex h-[100px] w-full items-center justify-between border-b-2 border-borderColor bg-navbar px-4">
+    <div className="flex w-full items-center justify-between border-b-2 border-borderColor bg-navbar p-4">
       <Image
         className="cursor-pointer"
         src={Logo}
         alt="Logo"
-        width={80}
-        height={80}
+        width={75}
+        height={75}
         priority={true}
-        style={{ width: 80, height: 80 }}
+        style={{ width: 75, height: 75 }}
         onClick={() => {
           resetSearchState();
           router.push("/");
