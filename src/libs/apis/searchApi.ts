@@ -20,14 +20,18 @@ export async function getBookSearch(
       meta: { total_count: 0, pageable_count: 0, is_end: true },
     };
   }
-
-  const { data } = await axiosInstance.get<BookResponse>("/v3/search/book", {
-    params: {
-      query,
-      page,
-      size,
-      sort,
-    },
-  });
-  return data;
+  try {
+    const { data } = await axiosInstance.get<BookResponse>("/v3/search/book", {
+      params: {
+        query,
+        page,
+        size,
+        sort,
+      },
+    });
+    return data;
+  } catch (error) {
+    console.error("API 요청 중 에러 발생: ", error);
+    throw new Error("다시 시도해주세요!");
+  }
 }
