@@ -14,9 +14,6 @@ export default function Modal() {
   const { closeModal, data, isBookMark } = useModalStore();
 
   useEffect(() => {
-    // const body = document.body as HTMLBodyElement;
-    // body.classList.add("modal-open");
-
     const handlePopState = () => {
       closeModal();
     };
@@ -25,7 +22,7 @@ export default function Modal() {
     useScrollLock.enable(); // 스크롤 잠김
     return () => {
       useScrollLock.disable(); // 스크롤 잠김 해제
-      // body.classList.remove("modal-open");
+      closeModal(); // 뒤로가기 or 앞으로가기 시 모달 닫기
     };
   }, []);
 

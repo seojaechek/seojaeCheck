@@ -21,12 +21,12 @@ export default async function Home() {
           <h1 className="text-2xl font-bold">오늘의 주제</h1>
           <h3 className="text-xl font-semibold">{topics[randomIndex]}</h3>
         </div>
-        <Carousel books={bookData.topic} />
+        <Carousel books={bookData.topic} isModal={true} />
         <div className="flex items-center gap-7">
           <h1 className="text-2xl font-bold">오늘의 작가</h1>
           <h3 className="text-xl font-semibold">{authors[randomIndex]}</h3>
         </div>
-        <Carousel books={bookData.author} />
+        <Carousel books={bookData.author} isModal={false} />
       </div>
     </main>
   );

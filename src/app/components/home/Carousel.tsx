@@ -6,7 +6,13 @@ import Modal from "../modal/Modal";
 
 import { Book } from "@/types/common";
 
-export default function Carousel({ books }: { books: Book[] }) {
+export default function Carousel({
+  books,
+  isModal,
+}: {
+  books: Book[];
+  isModal: boolean;
+}) {
   const { isOpen, openModalWithData, data } = useModalStore();
 
   return (
@@ -49,7 +55,7 @@ export default function Carousel({ books }: { books: Book[] }) {
           );
         })}
       </div>
-      {data && isOpen && <Modal />}
+      {data && isOpen && isModal && <Modal />}
     </section>
   );
 }
