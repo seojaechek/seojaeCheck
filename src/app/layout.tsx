@@ -7,6 +7,9 @@ import Navbar from "./components/Navbar";
 export const metadata: Metadata = {
   title: "서재췤",
   description: "내가 읽은 책을 관리하는 페이지",
+  icons: {
+    icon: "/favicon.ico",
+  },
 };
 
 const myFont = localFont({
