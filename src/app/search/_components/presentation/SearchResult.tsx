@@ -46,9 +46,10 @@ export default function SearchResult({
 
                 <div className="my-4 ml-8 mr-14 flex w-8/12 flex-col justify-between gap-2">
                   <div className="flex flex-col gap-2">
-                    <h2 className="font-styled text-2xl font-extrabold text-font-textPrimary">
+                    <h2 className="text-2xl font-black text-font-textPrimary">
                       {book.title}
                     </h2>
+
                     <p className="line-clamp-4 text-sm font-medium text-font-textSecondary">
                       {book.contents}
                     </p>
@@ -59,6 +60,7 @@ export default function SearchResult({
                       <dt className="searchDetail">작가</dt>
                       <dd className="font-semibold">{book.authors}</dd>
                     </div>
+
                     {book.translators && book.translators.length > 0 ? (
                       <div className="flex">
                         <dt className="searchDetail">번역</dt>
@@ -78,12 +80,14 @@ export default function SearchResult({
                       </dd>
                     </div>
 
-                    <div className="flex">
-                      <dt className="searchDetail">ISBN-10</dt>
-                      <dd className="font-semibold">
-                        {book.isbn.split(" ")[0]}
-                      </dd>
-                    </div>
+                    {book.isbn.split(" ")[0] && (
+                      <div className="flex">
+                        <dt className="searchDetail">ISBN-10</dt>
+                        <dd className="font-semibold">
+                          {book.isbn.split(" ")[0]}
+                        </dd>
+                      </div>
+                    )}
 
                     <div className="flex">
                       <dt className="searchDetail">ISBN-13</dt>

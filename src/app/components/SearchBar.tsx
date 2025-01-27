@@ -7,22 +7,20 @@ import searchBtn from "/public/icons/SearchSearch.svg";
 
 export default function SearchBar() {
   const router = useRouter();
-  const { query, setQuery, currentPage } = useSearchStore();
+  const { query, setQuery } = useSearchStore();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (!query.trim()) return;
-    router.push(
-      `/search?query=${encodeURIComponent(query)}&page=${currentPage}`,
-    );
+    router.push(`/search?query=${encodeURIComponent(query)}&page=1`);
   };
   return (
     <form
       role="search"
       aria-label="도서 검색"
       onSubmit={handleSubmit}
-      className="mb-14 flex w-5/12 min-w-72 rounded-lg bg-white px-4 py-5 shadow-sm"
+      className="flex w-2/5 min-w-72 rounded-lg bg-white p-4 shadow-md"
     >
       <label htmlFor="searchInput" className="sr-only">
         검색
