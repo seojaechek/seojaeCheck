@@ -21,7 +21,7 @@ export async function getBookSearch(
     };
   }
   try {
-    const { data } = await axiosInstance.get<BookResponse>("/v3/search/book", {
+    const { data } = await axiosInstance.get<BookResponse>("/v3/search/books", {
       params: {
         query,
         page,
