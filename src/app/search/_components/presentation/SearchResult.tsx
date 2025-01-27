@@ -31,7 +31,7 @@ export default function SearchResult({
       <ul className="flex flex-col items-center gap-5">
         {allDocs.map((book) => {
           return (
-            <li key={book.isbn.split(" ")[1]} className="searchList">
+            <li key={book.isbn} className="searchList">
               <article className="relative flex justify-center">
                 <picture className="flexCenter relative mx-8 my-3 h-60 w-36 self-center shadow-md">
                   <Image
