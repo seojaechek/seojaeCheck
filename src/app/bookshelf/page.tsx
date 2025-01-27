@@ -27,7 +27,7 @@ import Image from "next/image";
 
 export default function Dnd() {
   const { toRead, reading, done, setItems } = useLikedBookStore();
-  const { isOpen, data } = useModalStore();
+  const { isOpen } = useModalStore();
   const [activeId, setActiveId] = useState<string | null>(null);
   const [isOutside, setIsOutside] = useState<boolean>(false);
 
@@ -91,7 +91,7 @@ export default function Dnd() {
           ) : null}
         </DragOverlay>
 
-        {isOpen && data && <Modal />}
+        {isOpen && <Modal />}
       </DndContext>
     </article>
   );

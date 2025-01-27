@@ -38,8 +38,6 @@ export default function Modal() {
   ];
 
   return createPortal(
-    // <>
-    //   {data && (
     <div className="fixed left-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-black bg-opacity-50">
       <div className="relative flex w-[600px] flex-col justify-start gap-7 border-2 border-black bg-white p-16 drop-shadow-black">
         <Image
@@ -88,8 +86,6 @@ export default function Modal() {
         )}
       </div>
     </div>,
-    //   )}
-    // </>,
     document.querySelector("#global-modal") as HTMLDivElement,
   );
 }
