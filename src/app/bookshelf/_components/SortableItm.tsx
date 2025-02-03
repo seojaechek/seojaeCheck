@@ -12,7 +12,6 @@ import { useModalStore } from "@/stores/modal";
 interface SortableItemProps {
   id: string;
   book: likedBook;
-  // 드래그 & 드롭 컨테이너 영역 밖에 있는지 여부
   isOutside?: boolean;
 }
 
@@ -37,16 +36,21 @@ function SortableItem({ id, book }: SortableItemProps) {
           isDragging ? "opacity-50" : "opacity-100"
         }`}
         key={book.isbn}
-        onClick={() => {
-          openModalWithIsbn(book.isbn);
-        }}
+        onClick={() => openModalWithIsbn(book.isbn)}
       >
         <Image
           src={book.thumbnail || noImage}
           fill
           alt={book.title}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
+          className="object-cover"
         />
+        {/* 제목 오버레이 */}
+        {!book.thumbnail && (
+          <figcaption className="absolute inset-0 flex items-center justify-center bg-black/70 p-2 text-center text-sm font-semibold text-white opacity-0 transition-opacity duration-200 hover:opacity-100">
+            {book.title}
+          </figcaption>
+        )}
       </figure>
     </div>
   );
