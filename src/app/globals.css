@@ -7,12 +7,12 @@
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
+/* @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
-}
+} */
 
 body {
   color: var(--foreground);
@@ -23,6 +23,33 @@ body {
 @layer utilities {
   .text-balance {
     text-wrap: balance;
+  }
+  .pause {
+    animation-play-state: paused;
+  }
+  /* .modal-open {
+    height: 100vh;
+    overflow-y: hidden;
+  } */
+
+  .scrollbar::-webkit-scrollbar {
+    width: 10px;
+    height: 20px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: #f7f4ed;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #e0cbcb;
+    border-radius: 100vh;
+    border: 3px solid #f6f7ed;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #c0a0b9;
   }
 }
 
@@ -38,4 +65,33 @@ body {
   src: url("/fonts/PretendardVariable.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
+}
+
+/* 스크롤 바 제거 */
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.flexCenter {
+  @apply flex items-center justify-center;
+}
+
+.searchDetail {
+  @apply w-3/12 text-font-textSecondary;
+}
+
+.searchList {
+  @apply w-[900px] max-w-5xl rounded-lg border-2 border-neutral-200 bg-white;
 }

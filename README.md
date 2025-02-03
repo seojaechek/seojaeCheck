@@ -1,36 +1,44 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<p align="center"><img align="center" src="https://github.com/user-attachments/assets/1661d3cf-e70e-4db8-a2a0-daeb4a704b3c" alt="logo" width="240" height="auto"></p>
+<br/>
+<br/>
 
-## Getting Started
+<h1 align="center">서재췤</h1>
 
-First, run the development server:
+## 프로젝트 소개
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**서재췤** 
+</br>
+내가 읽고 있는 책을 쉽게 관리할 수 있는 웹서비스 입니다.</br>
+읽고 있는 책을 검색하고 서재에 추가해서 책들은 관리할 수 있습니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 팀원 및 주요 기능
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- 조성훈: 책 추천 페이지
+- 김충만: 책 검색 기능
+- 김유현: 서재 페이지
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 개발 환경
 
-## Learn More
+| 기술              |    버전 |     | 기술               |    버전 |
+| :---------------- | ------: | --- | :----------------- | ------: |
+| **Next.js**       |      14 |     | **Axios**          |   1.7.9 |
+| **Node.js**       |  22.3.0 |     | **dnd-kit**        |   6.3.1 |
+| **TypeScript**    |       5 |     | **TailwindCSS**    |   3.4.1 | 
+| **Zustand**       |   5.0.2 |     | **Github Actions** |   
+</br>
+<br/>
 
-To learn more about Next.js, take a look at the following resources:
+## 디자인
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<p align="center"><img src="https://github.com/user-attachments/assets/ba3c367b-44ef-4f19-b13a-be86f470157e" alt=figma" width="500" height="auto"></p>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 페이지
+</br>
+메인 페이지
+<p align="center"><img src="https://github.com/user-attachments/assets/88350247-f569-46b0-af5a-86c14070d3cf" alt=main" width="500" height="auto"></p>
+검색 페이지
+<p align="center"><img src="https://github.com/user-attachments/assets/e82fe9e2-c2df-4feb-8d4c-db38955acf83" alt="search" width="500" height="auto"></p>
+<p align="center"><img src="https://github.com/user-attachments/assets/76e895b3-aacd-4300-8ba0-b41d17e9fa07" alt="search1" width="500" height="auto"></p>
+<p align="center"><img src="https://github.com/user-attachments/assets/8d5b3f0b-dcf2-4f74-8d05-01be6d566e8c" alt="search2" width="500" height="auto"></p>
+서재 페이지
+<p align="center"><img src="https://github.com/user-attachments/assets/4c746c99-c0b6-4605-94b7-6200320dbee7" alt="bookshelf" width="500" height="auto"></p>
