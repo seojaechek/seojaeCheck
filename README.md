@@ -24,8 +24,7 @@
 | **Next.js**       |      14 |     | **Axios**          |   1.7.9 |
 | **Node.js**       |  22.3.0 |     | **dnd-kit**        |   6.3.1 |
 | **TypeScript**    |       5 |     | **TailwindCSS**    |   3.4.1 | 
-| **Zustand**       |   5.0.2 |     | **Github Actions** |
-| **React-Query**   |  5.62.7 |     
+| **Zustand**       |   5.0.2 |     | **Github Actions** |   
 </br>
 <br/>
 
