@@ -4,6 +4,7 @@ import React from "react";
 import { useSortable } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { likedBook } from "@/types/common";
+import noImage from "/public/NoBookImage.jpeg";
 import Image from "next/image";
 
 import { useModalStore } from "@/stores/modal";
@@ -21,13 +22,6 @@ function SortableItem({ id, book }: SortableItemProps) {
       id,
     });
   const { openModalWithIsbn } = useModalStore();
-
-  if (!book.thumbnail)
-    return (
-      <div className="flexCenter h-full w-full border border-black">
-        {book.title}
-      </div>
-    );
 
   return (
     <div
@@ -48,7 +42,7 @@ function SortableItem({ id, book }: SortableItemProps) {
         }}
       >
         <Image
-          src={book.thumbnail}
+          src={book.thumbnail || noImage}
           fill
           alt={book.title}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"

@@ -22,6 +22,7 @@ export const useModalStore = create<States & Actions>((set) => ({
     set(() => ({ isOpen: true, data: data }));
   },
   openModalWithIsbn: async (isbn: string) => {
+    console.log("aaaa");
     const data = await getDetailByIsbn(isbn.split(" ")[0]);
 
     set(() => ({ isOpen: true, data: data, isBookMark: false }));
