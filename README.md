@@ -6,6 +6,8 @@
 
 ## 프로젝트 소개
 
+<a href='https://github.com/seojaechek/seojaeCheck'>배포 사이트</a>
+
 **서재췤** 
 </br>
 내가 읽고 있는 책을 쉽게 관리할 수 있는 웹서비스 입니다.</br>
