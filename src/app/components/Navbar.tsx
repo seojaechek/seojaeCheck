@@ -8,6 +8,7 @@ import BookIcon from "/public/icons/Books.png";
 
 import { useSearchStore } from "@/stores/searchStore";
 import SearchBar from "./SearchBar";
+import { RevalidateTopic } from "../action/revalidateTopic";
 
 export default function Navbar() {
   const router = useRouter();
@@ -24,8 +25,8 @@ export default function Navbar() {
         priority={true}
         style={{ width: 75, height: 75 }}
         onClick={() => {
+          RevalidateTopic();
           resetSearchState();
-          router.push("/");
         }}
       />
       <SearchBar />

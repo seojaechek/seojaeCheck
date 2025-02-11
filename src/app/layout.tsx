@@ -26,6 +26,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
+      {/* <head>
+        <script src="https://unpkg.com/react-scan/dist/auto.global.js" async />
+      </head> */}
       <body className={`${myFont.className} bg-neutral-100`}>
         <div id="global-modal" />
         <Navbar />

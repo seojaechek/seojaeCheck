@@ -27,6 +27,7 @@ export const useModalStore = create<States & Actions>((set) => ({
     set(() => ({ isOpen: true, data: data, isBookMark: false }));
   },
   closeModal: () => {
+    // window.onpopstate = null;
     set(() => ({ isOpen: false, data: null, isBookMark: true }));
   },
 }));

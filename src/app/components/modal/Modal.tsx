@@ -11,18 +11,19 @@ import CloseIcon from "/public/icons/Cancel.png";
 import Bookmark from "../Bookmark";
 
 export default function Modal() {
-  const { closeModal, data, isBookMark } = useModalStore();
+  const { isOpen, closeModal, data, isBookMark } = useModalStore();
 
   useEffect(() => {
-    const handlePopState = () => {
+    const handlePopstate = () => {
+      console.log("popstate");
       closeModal();
     };
-    window.addEventListener("popstate", handlePopState);
+    window.onpopstate = handlePopstate;
 
     useScrollLock.enable(); // 스크롤 잠김
     return () => {
+      console.log("unmount modal", isOpen);
       useScrollLock.disable(); // 스크롤 잠김 해제
-      closeModal(); // 뒤로가기 or 앞으로가기 시 모달 닫기
     };
   }, []);
 
@@ -41,7 +42,10 @@ export default function Modal() {
     <div className="fixed left-0 top-0 z-50 flex h-screen w-screen items-center justify-center bg-black bg-opacity-50">
       <div className="relative flex w-[600px] flex-col justify-start gap-7 border-2 border-black bg-white p-16 drop-shadow-black">
         <Image
-          onClick={closeModal}
+          onClick={() => {
+            closeModal();
+            console.log("click closeBtn");
+          }}
           src={CloseIcon}
           sizes="48"
           alt="closeIcon"
