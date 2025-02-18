@@ -2,16 +2,40 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
+
+import { useSearchStore } from "@/stores/searchStore";
+import SearchBar from "./SearchBar";
+import { InvalidateHomeData } from "../action/invalidateHomeData";
 
 import Logo from "/public/Logo.png";
 import BookIcon from "/public/icons/Books.png";
 
-import { useSearchStore } from "@/stores/searchStore";
-import SearchBar from "./SearchBar";
-
 export default function Navbar() {
   const router = useRouter();
   const { resetSearchState } = useSearchStore();
+
+  useEffect(() => {
+    revalidateData();
+  }, []);
+
+  const revalidateData = async () => {
+    const currentDate = new Date().getDate();
+
+    if (localStorage.getItem("date") !== currentDate.toString()) {
+      await InvalidateHomeData();
+      localStorage.setItem("date", currentDate.toString());
+    }
+  };
+
+  const handleHomeClick = async () => {
+    if (window.location.pathname === "/") {
+      return;
+    }
+    await revalidateData();
+    resetSearchState();
+    router.push("/");
+  };
 
   return (
     <div className="flex w-full items-center justify-between border-b-2 border-borderColor bg-navbar p-4">
@@ -23,10 +47,7 @@ export default function Navbar() {
         height={75}
         priority={true}
         style={{ width: 75, height: 75 }}
-        onClick={() => {
-          resetSearchState();
-          router.push("/");
-        }}
+        onClick={handleHomeClick}
       />
       <SearchBar />
       <Image
