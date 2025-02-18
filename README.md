@@ -6,7 +6,7 @@
 
 ## 프로젝트 소개
 
-<a href='https://github.com/seojaechek/seojaeCheck'>배포 사이트</a>
+<a href='https://seojae-check.vercel.app/'>클릭하고 서비스를 이용해보세요!</a>
 
 **서재췤** 
 </br>
