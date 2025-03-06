@@ -58,7 +58,7 @@ export default function Dropdown({
   return (
     <form
       action=""
-      className={`${dropdownPosition} absolute flex flex-col items-center gap-3 rounded border bg-white p-5 shadow-lg`}
+      className={`${dropdownPosition} absolute top-11 flex w-1/2 flex-col items-center gap-3 rounded border bg-white p-5 shadow-lg md:w-1/3`}
       onClick={(e) => e.stopPropagation()}
     >
       <label className="mr-2 text-sm font-semibold">

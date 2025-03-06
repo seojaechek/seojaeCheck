@@ -56,8 +56,8 @@ export default function Bookmark({
         buttonClassName={`${btnPosition} group absolute top-4 z-10 cursor-pointer`}
         onClick={(e) => handleClickBookmark(e, book.isbn)}
         src={bookmarkIcon}
-        width={30}
-        height={30}
+        width={25}
+        height={25}
         alt="북마크 추가"
         imgClassName='transition-transform duration-100 ease-in group-hover:scale-110"'
       />

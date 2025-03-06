@@ -20,7 +20,7 @@ export default function SearchBar() {
       role="search"
       aria-label="도서 검색"
       onSubmit={handleSubmit}
-      className="flex w-2/5 min-w-72 rounded-lg bg-white p-4 shadow-md"
+      className="relative flex w-1/3 min-w-60 gap-2 rounded-lg bg-white p-3 shadow-md md:p-4"
     >
       <label htmlFor="searchInput" className="sr-only">
         검색
@@ -32,9 +32,9 @@ export default function SearchBar() {
         placeholder="Search..."
         aria-describedby="search-hint"
         onChange={(e) => setQuery(e.target.value)}
-        className="grow text-lg text-font-textPrimary outline-none"
+        className="w-full grow text-lg text-font-textPrimary outline-none"
       />
-      <button type="submit" aria-label="검색 버튼" className="search">
+      <button type="submit" aria-label="검색 버튼" className="">
         <Image src={searchBtn} width={32} height={32} alt="검색 아이콘" />
       </button>
       <p id="search-hint" className="sr-only">
