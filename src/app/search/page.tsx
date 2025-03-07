@@ -27,7 +27,7 @@ export default async function Search({ searchParams }: SearchProps) {
   }
 
   return (
-    <section className="flexCenter relative mb-10 mt-10 flex-col font-main">
+    <section className="relative my-10 flex-col font-main">
       {errorMessage ? (
         <div className="text-center font-styled text-2xl font-bold text-font-textPrimary">
           <p className="mb-2">책 데이터를 불러오는 중 문제가 발생했습니다..</p>

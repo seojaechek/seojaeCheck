@@ -50,7 +50,7 @@ export default function Pagination({ meta, currentPageNum }: PaginationProps) {
   const hasNextBlock = endPage < totalPages;
 
   return (
-    <nav className="flexCenter mt-4">
+    <nav className="flexCenter mx-2 mt-4">
       {/* 첫 페이지 */}
       <IconButton
         src={doubleArrow}
@@ -81,8 +81,8 @@ export default function Pagination({ meta, currentPageNum }: PaginationProps) {
           onClick={() => handlePageChange(page)}
           className={
             page === currentPage
-              ? "mx-1 rounded bg-blue-500 px-2 py-1 text-white"
-              : "mx-1 rounded bg-white px-2 py-1"
+              ? "mx-1 rounded bg-blue-500 px-1 py-1 text-white md:px-2"
+              : "mx-1 rounded bg-white px-1 py-1 md:px-2"
           }
         >
           {page}
