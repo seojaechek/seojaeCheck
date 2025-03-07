@@ -1,10 +1,7 @@
 import topics from "@/data/topics";
 
-export const todayTopic = async (
-  randomIndex: number,
-  revalidationTime: number,
-) => {
-  const query = topics[randomIndex];
+export const todayTopic = async (index: number) => {
+  const query = topics[index];
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_API_URL}v3/search/book?query=${query}`,
     {
@@ -13,7 +10,7 @@ export const todayTopic = async (
         "Content-Type": "application/json",
         Authorization: `KakaoAK ${process.env.NEXT_PUBLIC_KAKAO_API_KEY}`,
       },
-      next: { revalidate: revalidationTime },
+      next: { tags: ["homeData"] },
     },
   );
 
