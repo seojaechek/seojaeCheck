@@ -88,10 +88,14 @@ input[type="search"]::-webkit-search-cancel-button {
   @apply flex items-center justify-center;
 }
 
-.searchDetail {
-  @apply w-3/12 text-font-textSecondary;
+.searchBookKey {
+  @apply mr-2 flex justify-between;
 }
 
 .searchList {
-  @apply w-[900px] max-w-5xl rounded-lg border-2 border-neutral-200 bg-white;
+  @apply w-full border-b-2 border-neutral-200 bg-white md:rounded-lg md:border-2;
+}
+
+.searchDetail {
+  @apply flex justify-between text-font-textSecondary md:w-1/6;
 }

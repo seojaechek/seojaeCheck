@@ -38,29 +38,33 @@ export default function Navbar() {
   };
 
   return (
-    <div className="flex w-full items-center justify-between border-b-2 border-borderColor bg-navbar p-4">
-      <Image
-        className="cursor-pointer"
-        src={Logo}
-        alt="Logo"
-        width={75}
-        height={75}
-        priority={true}
-        style={{ width: 75, height: 75 }}
-        onClick={handleHomeClick}
-      />
+    <div className="flex w-full items-center justify-between border-b-2 border-borderColor bg-navbar px-2 py-3 md:p-4">
+      <picture className="relative h-14 w-14 md:h-16 md:w-16">
+        <Image
+          className="cursor-pointer"
+          src={Logo}
+          alt="Logo"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
+          priority={true}
+          onClick={handleHomeClick}
+        />
+      </picture>
+
       <SearchBar />
-      <Image
-        className="cursor-pointer"
-        src={BookIcon}
-        width={45}
-        height={45}
-        alt="books"
-        onClick={() => {
-          resetSearchState();
-          router.push("/bookshelf");
-        }}
-      />
+      <picture className="relative h-8 w-8 md:h-11 md:w-11">
+        <Image
+          className="cursor-pointer"
+          src={BookIcon}
+          fill
+          alt="books"
+          onClick={() => {
+            resetSearchState();
+            router.push("/bookshelf");
+          }}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw"
+        />
+      </picture>
     </div>
   );
 }

@@ -27,7 +27,7 @@ export default function SortSearch({ query, page, sort }: SortProps) {
   };
 
   return (
-    <div className="my-1 flex">
+    <div className="mx-1 my-1 flex self-start text-sm md:text-base">
       {sortOption.map((option, index) => (
         <div key={option.value} className="flex items-center">
           <button
