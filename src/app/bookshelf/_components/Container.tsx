@@ -9,6 +9,7 @@ import {
 
 import SortableItem from "./SortableItm";
 import { likedBook } from "@/types/common";
+import { bookShelfLabel } from "@/utils/bookShelfLabel";
 
 interface ContainerProps {
   id: string;
@@ -21,14 +22,7 @@ export default function Container({ id, items }: ContainerProps) {
     id,
   });
 
-  function titleConverter(id: string) {
-    if (id === "toRead") {
-      return "읽을 책";
-    } else if (id === "reading") {
-      return "읽고 있는 책";
-    }
-    return "다 읽은 책";
-  }
+  const labelName = bookShelfLabel(id);
 
   return (
     <SortableContext
@@ -37,7 +31,7 @@ export default function Container({ id, items }: ContainerProps) {
       items={items.map((item) => item.isbn)}
       strategy={horizontalListSortingStrategy}
     >
-      <label className="text-xl font-semibold">{titleConverter(id)}</label>
+      <label className="text-xl font-semibold">{labelName}</label>
       <section
         ref={setNodeRef}
         className="no-scrollbar flex h-[180px] flex-row space-x-3 overflow-x-scroll bg-white"

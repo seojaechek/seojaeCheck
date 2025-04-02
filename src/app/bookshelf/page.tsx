@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import {
   DndContext,
-  DragOverlay,
   PointerSensor,
   useSensor,
   useSensors,
@@ -11,19 +10,17 @@ import {
 } from "@dnd-kit/core";
 
 import Container from "./_components/Container";
-import SortableItem from "./_components/SortableItm";
 import { useLikedBookStore } from "@/stores/likedBooks";
 import {
   handleDragStart,
   handleDragOver,
   handleDragEnd,
   handleDragMove,
-} from "@/libs/dnd/dragHelper";
+} from "@/utils/bookDragHelper";
 import { likedBook } from "@/types/common";
 import Modal from "../components/modal/Modal";
 import { useModalStore } from "@/stores/modal";
-import Delete from "/public/icons/Delete.png";
-import Image from "next/image";
+import DraggedItem from "./_components/DraggedItem";
 
 export default function Dnd() {
   const { toRead, reading, done, setItems } = useLikedBookStore();
@@ -59,7 +56,7 @@ export default function Dnd() {
 
   return (
     <article className="min-h-minu-nav flex flex-col space-y-5 px-[10%] pb-[12%] pt-[8%]">
-      <h1 className="pb-2 text-2xl font-bold">내 서재</h1>
+      <h1 className="pb-2 text-3xl font-bold">내 서재</h1>
       <DndContext
         sensors={sensors}
         collisionDetection={rectIntersection}
@@ -77,23 +74,11 @@ export default function Dnd() {
           <Container key={id} id={id} items={bookList} />
         ))}
 
-        {/* 드래그 중인 아이템 */}
-        <DragOverlay>
-          {activeId && activeItem ? (
-            <div>
-              {isOutside && (
-                <div className="flexCenter absolute z-10 h-[180px] w-[121px] bg-red-200 opacity-50">
-                  <Image src={Delete} sizes="8" alt="삭제하기" />
-                </div>
-              )}
-
-              <SortableItem id={activeItem.isbn} book={activeItem} />
-            </div>
-          ) : null}
-        </DragOverlay>
-
-        {isOpen && <Modal />}
+        {activeId && activeItem && (
+          <DraggedItem isOutside={isOutside} activeItem={activeItem} />
+        )}
       </DndContext>
+      {isOpen && <Modal />}
     </article>
   );
 }

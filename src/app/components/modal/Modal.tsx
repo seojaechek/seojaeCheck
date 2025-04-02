@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import { useEffect } from "react";
 
 import { useModalStore } from "@/stores/modal";
-import useScrollLock from "@/libs/scrollLock/scrollLock";
+import useScrollLock from "@/utils/scrollLock";
 import ModalContent from "./ModalContent";
 
 import CloseIcon from "/public/icons/Cancel.png";
