@@ -58,7 +58,8 @@ export default function Dnd() {
   const activeItem = allItems.find((book) => book.isbn === activeId);
 
   return (
-    <article className="min-h-minu-nav flex flex-col space-y-5 p-[5%]">
+    <article className="min-h-minu-nav flex flex-col space-y-5 px-[10%] pb-[12%] pt-[8%]">
+      <h1 className="pb-2 text-2xl font-bold">내 서재</h1>
       <DndContext
         sensors={sensors}
         collisionDetection={rectIntersection}

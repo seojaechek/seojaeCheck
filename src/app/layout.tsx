@@ -13,10 +13,7 @@ export const metadata: Metadata = {
 };
 
 const myFont = localFont({
-  src: [
-    { path: "../../public/fonts/NanumMyeongjo.woff" },
-    { path: "../../public/fonts/PretendardVariable.woff2" },
-  ],
+  src: [{ path: "../../public/fonts/PretendardVariable.woff2" }],
 });
 
 export default function RootLayout({

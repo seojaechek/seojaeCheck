@@ -37,12 +37,10 @@ export default function Container({ id, items }: ContainerProps) {
       items={items.map((item) => item.isbn)}
       strategy={horizontalListSortingStrategy}
     >
-      <label className="font-styled text-2xl font-extrabold text-font-textPrimary">
-        {titleConverter(id)}
-      </label>
+      <label className="text-xl font-semibold">{titleConverter(id)}</label>
       <section
         ref={setNodeRef}
-        className="flex min-h-[180px] flex-1 flex-row space-x-3 overflow-x-scroll border border-brown-2 bg-white"
+        className="no-scrollbar flex h-[180px] flex-row space-x-3 overflow-x-scroll bg-white"
       >
         {items.map((item) => (
           <SortableItem key={item.isbn} id={item.isbn} book={item} />
