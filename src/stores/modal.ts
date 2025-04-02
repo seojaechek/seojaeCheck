@@ -1,6 +1,6 @@
 import { create } from "zustand";
 import { Book } from "@/types/common";
-import getDetailByIsbn from "@/libs/apis/getDetailByIsbn";
+import getDetailByIsbn from "@/services/getDetailByIsbn";
 
 interface States {
   isOpen: boolean;

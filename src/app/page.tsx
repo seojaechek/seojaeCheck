@@ -2,9 +2,9 @@ import Carousel from "./components/home/Carousel";
 
 import topics from "@/data/topics";
 import authors from "@/data/authors";
-import { todayTopic } from "@/libs/apis/todayTopic";
-import { todayAuthors } from "@/libs/apis/todayAuthors";
-import GetIndex from "@/libs/isr/GetIndex";
+import { todayTopic } from "@/services/todayTopic";
+import { todayAuthors } from "@/services/todayAuthors";
+import GetIndex from "@/utils/GetIndex";
 
 export default async function Home() {
   const index = GetIndex();

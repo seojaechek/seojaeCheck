@@ -1,13 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  DndContext,
-  PointerSensor,
-  useSensor,
-  useSensors,
-  rectIntersection,
-} from "@dnd-kit/core";
+import { DndContext, rectIntersection } from "@dnd-kit/core";
 
 import Container from "./_components/Container";
 import { useLikedBookStore } from "@/stores/likedBooks";
@@ -21,6 +15,7 @@ import { likedBook } from "@/types/common";
 import Modal from "../components/modal/Modal";
 import { useModalStore } from "@/stores/modal";
 import DraggedItem from "./_components/DraggedItem";
+import { useDndSensors } from "@/hooks/useDndSensors";
 
 export default function Dnd() {
   const { toRead, reading, done, setItems } = useLikedBookStore();
@@ -35,13 +30,7 @@ export default function Dnd() {
   const allItems = [...toRead, ...reading, ...done];
 
   // DnD 센서
-  const sensors = useSensors(
-    useSensor(PointerSensor, {
-      activationConstraint: {
-        distance: 1,
-      },
-    }),
-  );
+  const sensors = useDndSensors();
 
   // 컨테이너 업데이트 함수
   const updateContainers = (updated: Partial<typeof items>) => {
