@@ -1,5 +1,5 @@
 import { BookResponse } from "@/types/common";
-import { getBookSearch } from "@/libs/apis/searchApi";
+import { getBookSearch } from "@/services/searchApi";
 import SearchResultContainer from "./_components/container/SearchResultContainer";
 
 interface SearchProps {
