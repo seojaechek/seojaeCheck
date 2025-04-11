@@ -3,6 +3,7 @@ import { ReactQueryClientProvider } from "@/provider/ReactQueryClient";
 import "./globals.css";
 import localFont from "next/font/local";
 import Navbar from "./components/Navbar";
+import NavigationInterceptor from "./components/NavigationInterceptor";
 
 export const metadata: Metadata = {
   title: "서재췤",
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body className={`${myFont.className} bg-neutral-100`}>
         <div id="global-modal" />
         <Navbar />
+        <NavigationInterceptor />
         <ReactQueryClientProvider>{children}</ReactQueryClientProvider>
       </body>
     </html>
